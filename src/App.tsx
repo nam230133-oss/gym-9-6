@@ -357,6 +357,14 @@ interface ConfirmDialog {
 
 const translations: Record<string, any> = {
   vi: {
+    pos_mgmt: "QUẢN LÝ KHO HÀNG",
+    pos_products: "QUẢN LÝ SẢN PHẨM",
+    pos_inventory: "KHO HÀNG HIỆN TỒN",
+    pos_purchase: "ĐƠN ĐẶT MUA HÀNG",
+    pos_receive: "NHẬP HÀNG VÀO KHO",
+    pos_history: "LỊCH SỬ BIẾN ĐỘNG KHO",
+    pos_adjust: "ĐIỀU CHỈNH TỒN KHO",
+    pos_report: "BÁO CÁO THỐNG KÊ KHO",
     dashboard: "TỔNG QUAN",
     members: "HỘI VIÊN",
     reports: "BÁO CÁO",
@@ -747,9 +755,37 @@ const translations: Record<string, any> = {
     addEquipmentCapitalized: "THÊM THIẾT BỊ MỚI",
     noEquipmentFound: "Không tìm thấy thiết bị phù hợp",
     editBtnLong: "CHỈNH SỬA",
-    noMaintenanceScheduled: "KHÔNG CÓ LỊCH BẢO TRÌ"
+    noMaintenanceScheduled: "KHÔNG CÓ LỊCH BẢO TRÌ",
+    expiringInvoicesLabel: "Hóa đơn sắp hết hạn",
+    expiredInvoicesLabel: "Hóa đơn hết hạn",
+    newInvoicesLabel: "Hóa đơn mới",
+    membersTodayLabel: "Hội viên hôm nay",
+    totalLabel: "Tổng số",
+    membersTrainingTodayLabel: "Hội viên tập hôm nay",
+    orderNo: "STT",
+    image: "Hình ảnh",
+    phoneLabel: "Điện thoại",
+    serviceLabel: "Dịch vụ",
+    dateLabel: "Ngày",
+    paidStatus: "ĐÃ THANH TOÁN",
+    remaining: "Còn lại",
+    days: "Ngày",
+    timeRange: "Thời gian",
+    viewMembers: "Xem Khách hàng",
+    viewInvoices: "Xem Hóa đơn",
+    checkinFrequency: "Tần suất check-in",
+    checkinFrequencyDesc: "Mật độ quét thẻ theo khung giờ trong ngày",
+    scanCount: "Lượt quét"
   },
   en: {
+    pos_mgmt: "INVENTORY MANAGEMENT",
+    pos_products: "PRODUCT CATALOG",
+    pos_inventory: "CURRENT STOCK LEVELS",
+    pos_purchase: "PURCHASE ORDERS",
+    pos_receive: "STOCK INTAKE",
+    pos_history: "INVENTORY LOGS",
+    pos_adjust: "STOCK ADJUSTMENTS",
+    pos_report: "INVENTORY REPORTS",
     dashboard: "DASHBOARD",
     members: "MEMBERS",
     packages: "PACKAGES",
@@ -1099,9 +1135,37 @@ const translations: Record<string, any> = {
     addEquipmentCapitalized: "ADD NEW EQUIPMENT",
     noEquipmentFound: "No matching equipment found",
     editBtnLong: "EDIT",
-    noMaintenanceScheduled: "NO MAINTENANCE SCHEDULED"
+    noMaintenanceScheduled: "NO MAINTENANCE SCHEDULED",
+    expiringInvoicesLabel: "Expiring Invoices",
+    expiredInvoicesLabel: "Expired Invoices",
+    newInvoicesLabel: "New Invoices",
+    membersTodayLabel: "Members Today",
+    totalLabel: "Total",
+    membersTrainingTodayLabel: "Members Training Today",
+    orderNo: "No.",
+    image: "Image",
+    phoneLabel: "Phone",
+    serviceLabel: "Service",
+    dateLabel: "Date",
+    paidStatus: "PAID",
+    remaining: "Remaining",
+    days: "Days",
+    timeRange: "Time duration",
+    viewMembers: "View Members",
+    viewInvoices: "View Invoices",
+    checkinFrequency: "Check-in frequency",
+    checkinFrequencyDesc: "Card scanning density by hour of the day",
+    scanCount: "Scans"
   },
   zh: {
+    pos_mgmt: "库存管理",
+    pos_products: "产品列表",
+    pos_inventory: "库存余量",
+    pos_purchase: "采购订单",
+    pos_receive: "采购入库",
+    pos_history: "库存日志",
+    pos_adjust: "库存盘点",
+    pos_report: "库存报表",
     dashboard: "总览",
     members: "会员",
     reports: "报告",
@@ -1445,7 +1509,27 @@ const translations: Record<string, any> = {
     addEquipmentCapitalized: "添加新设备",
     noEquipmentFound: "未找到匹配设备",
     editBtnLong: "编辑",
-    noMaintenanceScheduled: "无维护日程安排"
+    noMaintenanceScheduled: "无维护日程安排",
+    expiringInvoicesLabel: "即将过期账单",
+    expiredInvoicesLabel: "过期账单",
+    newInvoicesLabel: "新会员账单",
+    membersTodayLabel: "今日到店会员",
+    totalLabel: "总数",
+    membersTrainingTodayLabel: "今日锻炼会员",
+    orderNo: "序号",
+    image: "照片",
+    phoneLabel: "电话",
+    serviceLabel: "服务",
+    dateLabel: "日期",
+    paidStatus: "已付款",
+    remaining: "剩余",
+    days: "天",
+    timeRange: "有效时间",
+    viewMembers: "查看会员",
+    viewInvoices: "查看账单",
+    checkinFrequency: "签到频率统计",
+    checkinFrequencyDesc: "全天各时段签到扫码密度",
+    scanCount: "签到次数"
   }
 };
 
@@ -1854,6 +1938,92 @@ export default function App() {
 
   const t = (key: string) => translations[lang]?.[key] || key;
 
+  const translatePackageName = (name: string) => {
+    if (!name) return "";
+    const upper = name.toUpperCase().trim();
+    const matches: Record<string, Record<string, string>> = {
+      "GÓI CƠ BẢN": {
+        "vi": "Gói Cơ Bản",
+        "en": "Basic Package",
+        "zh": "基础套餐"
+      },
+      "GÓI TIÊU CHUẨN 6T": {
+        "vi": "Gói Tiêu Chuẩn 6T",
+        "en": "Standard Package 6M",
+        "zh": "标准套餐 6 个月"
+      },
+      "GÓI CAO CẤP 12T": {
+        "vi": "Gói Cao Cấp 12T",
+        "en": "Premium Package 12M",
+        "zh": "高级套餐 12 个月"
+      },
+      "HỘI VIÊN VIP ELITE": {
+        "vi": "Hội Viên VIP ELITE",
+        "en": "VIP Elite Membership",
+        "zh": "精英 VIP 会员"
+      },
+      "CHƯA CÓ": {
+        "vi": "CHƯA CÓ",
+        "en": "NONE",
+        "zh": "暂无"
+      },
+      "CHƯA ĐĂNG KÝ GÓI TẬP": {
+        "vi": "Chưa đăng ký gói tập",
+        "en": "Not subscribed to any package",
+        "zh": "未订阅套餐"
+      },
+      "MEMBERSHIP 1 THÁNG": {
+        "vi": "MEMBERSHIP 1 tháng",
+        "en": "MEMBERSHIP 1 Month",
+        "zh": "1 个月会员"
+      },
+      "MEMBERSHIP 3 THÁNG": {
+        "vi": "MEMBERSHIP 3 tháng",
+        "en": "MEMBERSHIP 3 Months",
+        "zh": "3 个月会员"
+      },
+      "MEMBERSHIP 6 THÁNG": {
+        "vi": "MEMBERSHIP 6 tháng",
+        "en": "MEMBERSHIP 6 Months",
+        "zh": "6 个月会员"
+      },
+      "MEMBERSHIP 12 THÁNG": {
+        "vi": "MEMBERSHIP 12 tháng",
+        "en": "MEMBERSHIP 12 Months",
+        "zh": "12 个月会员"
+      }
+    };
+
+    if (matches[upper]) {
+      return matches[upper][lang] || name;
+    }
+    
+    let localized = name;
+    if (lang === "en") {
+      localized = localized
+        .replace(/Gói/gi, "Package")
+        .replace(/Cơ Bản/gi, "Basic")
+        .replace(/Tiêu Chuẩn/gi, "Standard")
+        .replace(/Cao Cấp/gi, "Premium")
+        .replace(/Hội Viên/gi, "Member")
+        .replace(/tháng/gi, "Month")
+        .replace(/Tháng/gi, "Month")
+        .replace(/THÁNG/gi, "Month");
+    } else if (lang === "zh") {
+      localized = localized
+        .replace(/Gói/gi, "套餐")
+        .replace(/Cơ Bản/gi, "基础")
+        .replace(/Tiêu Chuẩn/gi, "标准")
+        .replace(/Cao Cấp/gi, "高级")
+        .replace(/Hội Viên/gi, "会员")
+        .replace(/tháng/gi, "个月会员")
+        .replace(/Tháng/gi, "个月会员")
+        .replace(/THÁNG/gi, "个月会员")
+        .replace(/MEMBERSHIP/gi, "");
+    }
+    return localized;
+  };
+
   const getStaffDisplayName = (s: { username: string; fullName: string; role?: string }) => {
     const roleKey = s.role || "";
     const translatedRole = t(roleKey);
@@ -1889,10 +2059,10 @@ export default function App() {
   ];
 
   const packageDistribution = [
-    { name: t("Gói Cơ Bản"), value: 45, color: "#CCFF00" },
-    { name: t("Gói Tiêu Chuẩn 6T"), value: 30, color: "#FFFFFF" },
-    { name: t("Gói Cao Cấp 12T"), value: 20, color: "#3f3f46" },
-    { name: t("Hội Viên VIP ELITE"), value: 5, color: "#ef4444" },
+    { name: translatePackageName("Gói Cơ Bản"), value: 45, color: "#CCFF00" },
+    { name: translatePackageName("Gói Tiêu Chuẩn 6T"), value: 30, color: "#FFFFFF" },
+    { name: translatePackageName("Gói Cao Cấp 12T"), value: 20, color: "#3f3f46" },
+    { name: translatePackageName("Hội Viên VIP ELITE"), value: 5, color: "#ef4444" },
   ];
 
   const checkinTrends = [
@@ -2914,7 +3084,7 @@ export default function App() {
     setSearchError("");
     setFoundMember(null);
     if (!searchMemberCode.trim()) {
-      setSearchError("Vui lòng nhập tên, mã hoặc tên đăng nhập hội viên");
+      setSearchError(lang === 'vi' ? "Vui lòng nhập tên, mã hoặc tên đăng nhập hội viên" : (lang === 'zh' ? "请输入姓名、编码或账户名" : "Please enter the name, code, or username of the member"));
       return;
     }
     const cleanQuery = searchMemberCode.trim().toLowerCase();
@@ -2927,7 +3097,7 @@ export default function App() {
     if (found) {
       setFoundMember(found);
     } else {
-      setSearchError("Không tìm thấy hội viên nào có tên, số điện thoại, mã hoặc tên đăng nhập này!");
+      setSearchError(lang === 'vi' ? "Không tìm thấy hội viên nào có tên, số điện thoại, mã hoặc tên đăng nhập này!" : (lang === 'zh' ? "未找到包含此姓名、电话、编码或账户名的会员！" : "No member found matching this name, phone, code, or username!"));
     }
   };
 
@@ -3948,38 +4118,93 @@ export default function App() {
       if (res.ok) {
         setIsModalOpen(false);
         if (res.status === 200) {
-          addNotification("Đăng ký thành công! Số điện thoại đã có tài khoản Mobile App, đã tự động liên kết thành công với hồ sơ hội viên mới.", "success");
+          addNotification(
+            lang === "vi"
+              ? "Đăng ký thành công! Số điện thoại đã có tài khoản Mobile App, đã tự động liên kết thành công với hồ sơ hội viên mới."
+              : lang === "zh"
+              ? "注册成功！该手机号已有关联的移动客户端账号，系统已自动完成会员档案关联。"
+              : "Registration successful! This phone number matches an existing Mobile App user; files have been linked-up automatically.",
+            "success"
+          );
         } else {
-          addNotification("Đăng ký hội viên mới thành công!", "success");
+          addNotification(
+            lang === "vi"
+              ? "Đăng ký hội viên mới thành công!"
+              : lang === "zh"
+              ? "成功注册新会员！"
+              : "New member registered successfully!",
+            "success"
+          );
         }
         setLinkedMobileProfile(null);
         fetchData();
       } else {
         const err = await res.json();
-        addNotification(err.message || "Đăng ký thất bại", "error");
+        addNotification(
+          err.message ||
+            (lang === "vi"
+              ? "Đăng ký thất bại"
+              : lang === "zh"
+              ? "注册失败"
+              : "Registration failed"),
+          "error"
+        );
       }
     } catch (error) {
       console.error(error);
-      addNotification("Lỗi kết nối hệ thống", "error");
+      addNotification(
+        lang === "vi"
+          ? "Lỗi kết nối hệ thống"
+          : lang === "zh"
+          ? "系统连接错误"
+          : "System connection error",
+        "error"
+      );
     }
   };
 
   const handleDeleteMember = (id: number) => {
     confirmAction(
-      "Xóa hội viên",
-      "Bạn có chắc chắn muốn chuyển trạng thái hội viên này thành Đã xóa?",
+      lang === "vi" ? "Xóa hội viên" : lang === "zh" ? "删除会员" : "Delete Member",
+      lang === "vi"
+        ? "Bạn có chắc chắn muốn chuyển trạng thái hội viên này thành Đã xóa?"
+        : lang === "zh"
+        ? "您确定要将此会员的状态更改为已删除吗？"
+        : "Are you sure you want to mark this member as deleted?",
       async () => {
         try {
           const res = await fetch(`/api/members/${id}`, { method: "DELETE" });
           if (res.ok) {
-            addNotification("Đã chuyển trạng thái hội viên thành Đã xóa!", "success");
+            addNotification(
+              lang === "vi"
+                ? "Đã chuyển trạng thái hội viên thành Đã xóa!"
+                : lang === "zh"
+                ? "会员状态已更改为已删除！"
+                : "Member status changed to deleted successfully!",
+              "success"
+            );
             fetchData();
           } else {
             const err = await res.json();
-            addNotification(err.message || "Xóa thất bại", "error");
+            addNotification(
+              err.message ||
+                (lang === "vi"
+                  ? "Xóa thất bại"
+                  : lang === "zh"
+                  ? "删除失败"
+                  : "Deletion failed"),
+              "error"
+            );
           }
         } catch (e) {
-          addNotification("Lỗi kết nối", "error");
+          addNotification(
+            lang === "vi"
+              ? "Lỗi kết nối"
+              : lang === "zh"
+              ? "连接错误"
+              : "Connection error",
+            "error"
+          );
         }
       }
     );
@@ -3987,20 +4212,46 @@ export default function App() {
 
   const handleRestoreMember = (id: number) => {
     confirmAction(
-      "Khôi phục hội viên",
-      "Xác nhận khôi phục hoạt động cho hội viên này?",
+      lang === "vi" ? "Khôi phục hội viên" : lang === "zh" ? "恢复会员" : "Restore Member",
+      lang === "vi"
+        ? "Xác nhận khôi phục hoạt động cho hội viên này?"
+        : lang === "zh"
+        ? "确认恢复该会员的活跃状态吗？"
+        : "Are you sure you want to restore active status for this member?",
       async () => {
         try {
           const res = await fetch(`/api/members/${id}/restore`, { method: "POST" });
           if (res.ok) {
-            addNotification("Hội viên đã được khôi phục thành công!", "success");
+            addNotification(
+              lang === "vi"
+                ? "Hội viên đã được khôi phục thành công!"
+                : lang === "zh"
+                ? "会员已成功恢复！"
+                : "Member restored successfully!",
+              "success"
+            );
             fetchData();
           } else {
             const err = await res.json();
-            addNotification(err.message || "Khôi phục thất bại", "error");
+            addNotification(
+              err.message ||
+                (lang === "vi"
+                  ? "Khôi phục thất bại"
+                  : lang === "zh"
+                  ? "恢复失败"
+                  : "Restore failed"),
+              "error"
+            );
           }
         } catch (e) {
-          addNotification("Lỗi kết nối", "error");
+          addNotification(
+            lang === "vi"
+              ? "Lỗi kết nối"
+              : lang === "zh"
+              ? "连接错误"
+              : "Connection error",
+            "error"
+          );
         }
       }
     );
@@ -5480,16 +5731,16 @@ export default function App() {
                           ? "bg-[#CCFF00]/10 text-[#CCFF00] border border-[#CCFF00]/20" 
                           : "bg-red-500/10 text-red-500 border border-red-500/20"
                     }`}>
-                      {isUnregistered ? "Bạn chưa đăng ký hội viên." : isMemberActive ? "ĐANG SỬ DỤNG" : "HẾT HẠN"}
+                      {isUnregistered ? (lang === 'vi' ? "Bạn chưa đăng ký hội viên." : lang === 'zh' ? "您尚未注册会员" : "UNREGISTERED") : isMemberActive ? (lang === 'vi' ? "ĐANG SỬ DỤNG" : lang === 'zh' ? "使用中" : "ACTIVE") : (lang === 'vi' ? "HẾT HẠN" : lang === 'zh' ? "已过期" : "EXPIRED")}
                     </span>
                   </div>
 
                   <div>
                     <h4 className="text-xl font-black italic uppercase text-white tracking-tight leading-none text-wrap">
-                      {isUnregistered ? "Bạn chưa đăng ký hội viên." : (activeMemberData.package || "Chưa đăng ký gói tập")}
+                      {isUnregistered ? (lang === 'vi' ? "Bạn chưa đăng ký hội viên." : lang === 'zh' ? "您尚未注册会员。" : "You are not registered as a member yet.") : (translatePackageName(activeMemberData.package) || "Chưa đăng ký gói tập")}
                     </h4>
                     <p className="text-[9.5px] font-mono text-zinc-400 uppercase tracking-wide mt-2 font-bold italic leading-relaxed">
-                      {isUnregistered ? "Vui lòng đến quầy để đăng ký gói tập." : <>Ngày kết thúc: <span className="text-white font-bold">{activeMemberData.expiryDate || "Chưa ký hợp đồng"}</span></>}
+                      {isUnregistered ? (lang === 'vi' ? "Vui lòng đến quầy để đăng ký gói tập." : lang === 'zh' ? "请前往前台注册健身套餐。" : "Please visit the front desk to register.") : <>{lang === 'vi' ? "Ngày kết thúc" : lang === 'zh' ? "结束日期" : "End date"}: <span className="text-white font-bold">{activeMemberData.expiryDate || (lang === 'vi' ? "Chưa ký hợp đồng" : lang === 'zh' ? "尚未签约" : "No contract")}</span></>}
                     </p>
                   </div>
 
@@ -5938,15 +6189,15 @@ export default function App() {
                   return (
                     <div className="space-y-4">
                       <div>
-                        <span className="block text-[9px] font-mono font-black text-[#CCFF00] uppercase tracking-widest italic">TỔNG ĐÀI HỖ TRỢ TRỰC TUYẾN 24/7</span>
-                        <h3 className="text-xl font-black italic uppercase tracking-tighter text-white">MESSENGER HỖ TRỢ CHAT</h3>
+                        <span className="block text-[9px] font-mono font-black text-[#CCFF00] uppercase tracking-widest italic">{lang === 'vi' ? "TỔNG ĐÀI HỖ TRỢ TRỰC TUYẾN 24/7" : (lang === 'zh' ? "24/7 在线支持中心" : "24/7 ONLINE SUPPORT CENTER")}</span>
+                        <h3 className="text-xl font-black italic uppercase tracking-tighter text-white">{lang === 'vi' ? "MESSENGER HỖ TRỢ CHAT" : (lang === 'zh' ? "支持聊天" : "SUPPORT CHAT")}</h3>
                       </div>
 
                       {/* Simulated Support Search */}
                       <div className="relative">
                         <input
                           type="text"
-                          placeholder="Tìm nhân viên hỗ trợ hoặc PT..."
+                          placeholder={lang === 'vi' ? "Tìm nhân viên hỗ trợ hoặc PT..." : (lang === 'zh' ? "搜索支持人员或健身教练..." : "Search representatives or trainers...")}
                           value={mobileStaffSearch}
                           onChange={(e) => setMobileStaffSearch(e.target.value)}
                           className="w-full bg-zinc-900 border border-white/5 pl-10 pr-4 py-2.5 rounded-2xl text-xs font-semibold text-white outline-none focus:border-[#CCFF00]"
@@ -5957,9 +6208,9 @@ export default function App() {
                       {/* Filter Sub-Tabs */}
                       <div className="flex gap-2 pb-1 overflow-x-auto scrollbar-none">
                         {[
-                          { id: "ALL", label: "Tất cả" },
-                          { id: "PT", label: "HLV Thể hình (PT)" },
-                          { id: "STAFF", label: "Lễ tân / Support" }
+                          { id: "ALL", label: lang === 'vi' ? "Tất cả" : (lang === 'zh' ? "全部" : "All") },
+                          { id: "PT", label: lang === 'vi' ? "HLV Thể hình (PT)" : (lang === 'zh' ? "健身教练 (PT)" : "Personal Trainer (PT)") },
+                          { id: "STAFF", label: lang === 'vi' ? "Lễ tân / Support" : (lang === 'zh' ? "前台支援" : "Receptionist / Support") }
                         ].map(f => (
                           <button
                             key={f.id}
@@ -6005,10 +6256,10 @@ export default function App() {
                                   <div className="flex-1 min-w-0">
                                     <div className="flex justify-between items-baseline">
                                       <h4 className="text-[11.5px] font-black uppercase text-white truncate leading-none">{contact.fullName}</h4>
-                                      <span className="text-[8px] font-mono text-zinc-500 shrink-0">{lastMsg?.time || "Vừa xong"}</span>
+                                      <span className="text-[8px] font-mono text-zinc-500 shrink-0">{lastMsg?.time || (lang === 'vi' ? "Vừa xong" : (lang === 'zh' ? "刚刚" : "Just now"))}</span>
                                     </div>
                                     <p className="text-[10px] text-zinc-400 mt-1.5 truncate max-w-[210px] leading-none">
-                                      <span className={isMe ? "text-[#CCFF00] font-bold" : ""}>{isMe ? "Bạn: " : ""}</span>
+                                      <span className={isMe ? "text-[#CCFF00] font-bold" : ""}>{isMe ? (lang === 'vi' ? "Bạn: " : (lang === 'zh' ? "你: " : "You: ")) : ""}</span>
                                       {lastText}
                                     </p>
                                   </div>
@@ -6022,7 +6273,7 @@ export default function App() {
                               <MessageCircle className="w-3.5 h-3.5" />
                             </div>
                             <p className="text-[9.5px] text-zinc-500 leading-normal font-sans px-3">
-                              Chưa có cuộc trò chuyện nào trước đó. Chọn HLV hoặc kỹ thuật viên ở mục danh bạ phía dưới để khởi tạo chat ngay!
+                              {lang === 'vi' ? "Chưa có cuộc trò chuyện nào trước đó. Chọn HLV hoặc kỹ thuật viên ở mục danh bạ phía dưới để khởi tạo chat ngay!" : (lang === 'zh' ? "尚无过往聊天记录。请在下方通讯录中选择教练或支持人员发起对话！" : "No previous conversations. Select a trainer or representative from the contacts list below to start chatting!")}
                             </p>
                           </div>
                         )}
@@ -6030,11 +6281,11 @@ export default function App() {
 
                       {/* Section 2: Directory List (Tất cả nhân viên / PT) */}
                       <div className="space-y-2">
-                        <span className="block text-[8px] font-mono font-black text-zinc-500 uppercase tracking-widest leading-none mb-1.5">DANH BẠ TRỰC TUYẾN ({mergedList.length})</span>
+                        <span className="block text-[8px] font-mono font-black text-zinc-500 uppercase tracking-widest leading-none mb-1.5">{lang === 'vi' ? "DANH BẠ TRỰC TUYẾN" : (lang === 'zh' ? "在线通讯录" : "ONLINE CONTACTS")} ({mergedList.length})</span>
                         
                         {mergedList.length === 0 ? (
                           <div className="p-8 bg-zinc-900/30 border border-dashed border-white/5 rounded-[2rem] text-center text-zinc-500 font-mono text-[9px]">
-                            KHÔNG TÌM THẤY NHÂN VIÊN PHÙ HỢP RIÊNG BIỆT.
+                            {lang === 'vi' ? "KHÔNG TÌM THẤY NHÂN VIÊN PHÙ HỢP." : (lang === 'zh' ? "未找到符合条件的员工。" : "NO REPRESENTATIVES MATCHING SEARCH.")}
                           </div>
                         ) : (
                           <div className="space-y-2.5">
@@ -6044,8 +6295,12 @@ export default function App() {
                               const lastText = lastMsg ? lastMsg.text : "";
                               const isMe = lastMsg ? lastMsg.sender === "MEMBER" : false;
                               const chatSnippet = lastMsg 
-                                ? `${isMe ? "Bạn: " : ""}${lastText}` 
-                                : `Xin chào! Tôi là ${person.fullName}. Hãy gửi tin nhắn hỗ trợ để tôi tư vấn kĩ lưỡng nhất cho anh/chị nhé.`;
+                                ? `${isMe ? (lang === 'vi' ? "Bạn: " : (lang === 'zh' ? "你: " : "You: ")) : ""}${lastText}` 
+                                : (lang === 'vi' 
+                                  ? `Xin chào! Tôi là ${person.fullName}. Hãy gửi tin nhắn hỗ trợ để tôi tư vấn kĩ lưỡng nhất cho anh/chị nhé.` 
+                                  : (lang === 'zh' 
+                                    ? `你好！我是 ${person.fullName}。如果您需要任何咨询，请发消息给我！` 
+                                    : `Hello! I'm ${person.fullName}. Feel free to drop a message, I'll be glad to assist you.`));
 
                               return (
                                 <div 
@@ -6342,7 +6597,7 @@ export default function App() {
 
                         <div className="flex justify-between items-baseline pt-2 border-t border-white/5">
                           <div className="space-y-0.5">
-                            <p className="text-zinc-500 text-[8px] font-mono uppercase">GÓI TẬP: <strong className="text-zinc-350 uppercase italic font-sans">{activeMemberData.package || "CHƯA CÓ"}</strong></p>
+                            <p className="text-zinc-500 text-[8px] font-mono uppercase">{lang === 'vi' ? 'GÓI TẬP' : (lang === 'zh' ? '所选套餐' : 'MEMBERSHIP PACKAGE')}: <strong className="text-zinc-350 uppercase italic font-sans">{translatePackageName(activeMemberData.package || "CHƯA CÓ")}</strong></p>
                             <p className="text-zinc-500 text-[8px] font-mono uppercase">HẠN SỬ DỤNG: <strong className="text-zinc-350 font-mono">{activeMemberData.expiryDate || "—"}</strong></p>
                           </div>
                           <div className="text-right">
@@ -8586,25 +8841,25 @@ export default function App() {
                     : activeTab === "finance"
                       ? t('finance')
                     : activeTab === "staffReport"
-                      ? "BÁO CÁO NHÂN VIÊN QUẦY"
+                      ? t('staffReport')
                     : activeTab === "serviceReport"
-                      ? "THỐNG KÊ DỊCH VỤ"
+                      ? t('serviceReport')
                     : activeTab === "pos-products"
-                      ? "SẢN PHẨM KHO"
+                      ? t('pos_products')
                     : activeTab === "pos-inventory"
-                      ? "KHO HIỆN TỒN"
+                      ? t('pos_inventory')
                     : activeTab === "pos-purchase"
-                      ? "ĐƠN MUA HÀNG"
+                      ? t('pos_purchase')
                     : activeTab === "pos-receive"
-                      ? "NHẬP HÀNG KHO"
+                      ? t('pos_receive')
                     : activeTab === "pos-history"
-                      ? "LỊCH SỬ KHO"
+                      ? t('pos_history')
                     : activeTab === "pos-adjust"
-                      ? "ĐIỀU CHỈNH KHO"
+                      ? t('pos_adjust')
                     : activeTab === "pos-report"
-                      ? "BÁO CÁO KHO"
+                      ? t('pos_report')
                     : activeTab === "pos"
-                      ? "QUẢN LÝ KHO"
+                      ? t('pos_mgmt')
                       : t('settings')}
           </motion.div>
         </AnimatePresence>
@@ -8635,21 +8890,21 @@ export default function App() {
                     : activeTab === "packages"
                       ? t('pkgManagement')
                     : activeTab === "pos"
-                      ? "QUẢN LÝ KHO HÀNG"
+                      ? t('pos_mgmt')
                     : activeTab === "pos-products"
-                      ? "QUẢN LÝ SẢN PHẨM"
+                      ? t('pos_products')
                     : activeTab === "pos-inventory"
-                      ? "KHO HÀNG HIỆN TỒN"
+                      ? t('pos_inventory')
                     : activeTab === "pos-purchase"
-                      ? "ĐƠN ĐẶT MUA HÀNG"
+                      ? t('pos_purchase')
                     : activeTab === "pos-receive"
-                      ? "NHẬP HÀNG VÀO KHO"
+                      ? t('pos_receive')
                     : activeTab === "pos-history"
-                      ? "LỊCH SỬ BIẾN ĐỘNG KHO"
+                      ? t('pos_history')
                     : activeTab === "pos-adjust"
-                      ? "ĐIỀU CHỈNH TỒN KHO"
+                      ? t('pos_adjust')
                     : activeTab === "pos-report"
-                      ? "BÁO CÁO THỐNG KÊ KHO"
+                      ? t('pos_report')
                     : activeTab === "treasury"
                       ? t('treasury')
                     : activeTab === "finance"
@@ -9376,26 +9631,26 @@ export default function App() {
                               {displayMember.fullName}
                             </h2>
                             <div className="mt-1.5 text-[10px] font-bold text-zinc-400 uppercase tracking-wide font-medium">
-                              Dịch vụ: <span className="text-[#CCFF00] font-black">{displayMember.package || "MEMBERSHIP 1 tháng"}</span>
+                              {t('serviceLabel')}: <span className="text-[#CCFF00] font-black">{translatePackageName(displayMember.package || "MEMBERSHIP 1 tháng")}</span>
                             </div>
                           </div>
 
                           {/* Status Badge */}
                           <div className="flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1.5 rounded-xl w-fit">
                             <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                            <span className="text-[9.5px] font-black text-emerald-400 uppercase tracking-wider">ĐÃ THANH TOÁN</span>
+                            <span className="text-[9.5px] font-black text-emerald-400 uppercase tracking-wider">{t('paidStatus')}</span>
                           </div>
 
                           {/* Remaining Box */}
                           <div className="bg-[#181a24] p-3 rounded-2xl border border-white/5 text-center flex flex-col justify-center items-center shadow-inner relative overflow-hidden">
-                            <span className="text-[9px] font-black text-zinc-500 uppercase tracking-widest mb-1">Còn lại</span>
+                            <span className="text-[9px] font-black text-zinc-500 uppercase tracking-widest mb-1">{t('remaining')}</span>
                             <span className="text-3xl font-black italic text-[#CCFF00] font-mono leading-none">{remainingDays}</span>
-                            <span className="text-[9px] font-bold text-zinc-400 uppercase tracking-wide mt-1">Ngày</span>
+                            <span className="text-[9px] font-bold text-zinc-400 uppercase tracking-wide mt-1">{t('days')}</span>
                           </div>
 
                           {/* Duration timeframe */}
                           <div className="text-center font-mono text-[9px] text-zinc-500 leading-none">
-                            Thời gian: <span className="text-zinc-300 font-bold">{formatLocalDate(displayMember.registrationDate)} - {formatLocalDate(displayMember.expiryDate)}</span>
+                            {t('timeRange')}: <span className="text-zinc-300 font-bold">{formatLocalDate(displayMember.registrationDate)} - {formatLocalDate(displayMember.expiryDate)}</span>
                           </div>
 
                           {/* Action Buttons */}
@@ -9404,13 +9659,13 @@ export default function App() {
                               onClick={() => setActiveTab("members")}
                               className="bg-[#0099FF] hover:bg-[#007fdf] text-white text-[10px] font-black uppercase tracking-wider py-2.5 px-3 rounded-xl shadow-lg shadow-[#0099FF]/15 active:scale-95 transition-all text-center leading-none"
                             >
-                              Xem Khách hàng
+                              {t('viewMembers')}
                             </button>
                             <button
                               onClick={() => setActiveTab("memberSales")}
                               className="bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-white/5 text-[10px] font-black uppercase tracking-wider py-2.5 px-3 rounded-xl active:scale-95 transition-all text-center leading-none"
                             >
-                              Xem Hóa đơn
+                              {t('viewInvoices')}
                             </button>
                           </div>
                         </div>
@@ -9422,9 +9677,9 @@ export default function App() {
                           <div>
                             <h3 className="text-sm font-black uppercase text-white tracking-widest flex items-center gap-2">
                               <Activity className="w-4 h-4 text-[#CCFF00]" />
-                              Tần suất check-in
+                              {t('checkinFrequency')}
                             </h3>
-                            <p className="text-[10px] text-zinc-550 mt-0.5">Mật độ quét thẻ theo khung giờ trong ngày</p>
+                            <p className="text-[10px] text-zinc-500 mt-0.5">{t('checkinFrequencyDesc')}</p>
                           </div>
                           <div className="flex items-center gap-1.5 bg-[#CCFF00]/10 border border-[#CCFF00]/20 px-2.5 py-0.5 rounded-full text-[9px] font-mono text-[#CCFF00]">
                             <div className="w-1.5 h-1.5 rounded-full bg-[#CCFF00] animate-ping" />
@@ -9453,7 +9708,7 @@ export default function App() {
                                   const baselineWeight = hourInt === 6 || hourInt === 18 ? 14 : hourInt === 8 || hourInt === 16 || hourInt === 20 ? 9 : 5;
                                   return {
                                     hour: h,
-                                    "Lượt quét": actualCount + (checkins.length > 3 ? 0 : baselineWeight),
+                                    scans: actualCount + (checkins.length > 3 ? 0 : baselineWeight),
                                   };
                                 });
                               })()}
@@ -9490,7 +9745,8 @@ export default function App() {
                               />
                               <Area 
                                 type="monotone" 
-                                dataKey="Lượt quét" 
+                                dataKey="scans" 
+                                name={t('scanCount')}
                                 stroke="#CCFF00" 
                                 strokeWidth={1.5}
                                 fillOpacity={1} 
@@ -9526,30 +9782,30 @@ export default function App() {
                       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 shrink-0">
                         {/* KPI 1 */}
                         <div className="bg-[#11131a] border border-white/5 p-4 rounded-[1.2rem] flex flex-col justify-center items-center shadow-xl text-center hover:border-zinc-800 transition-colors">
-                          <span className="text-[10px] font-black text-[#5c67f2] uppercase tracking-wide mb-1 leading-none">Hóa đơn sắp hết hạn</span>
+                          <span className="text-[10px] font-black text-[#5c67f2] uppercase tracking-wide mb-1 leading-none">{t('expiringInvoicesLabel')}</span>
                           <span className="text-3xl font-black italic text-white font-mono leading-none mt-1">{metric_invoice_expiring}</span>
-                          <span className="text-[9px] font-bold text-zinc-500 uppercase tracking-widest mt-1.5">Tổng số</span>
+                          <span className="text-[9px] font-bold text-zinc-500 uppercase tracking-widest mt-1.5">{t('totalLabel')}</span>
                         </div>
                         
                         {/* KPI 2 */}
                         <div className="bg-[#11131a] border border-white/5 p-4 rounded-[1.2rem] flex flex-col justify-center items-center shadow-xl text-center hover:border-zinc-800 transition-colors">
-                          <span className="text-[10px] font-black text-[#00b7f8] uppercase tracking-wide mb-1 leading-none">Hóa đơn hết hạn</span>
+                          <span className="text-[10px] font-black text-[#00b7f8] uppercase tracking-wide mb-1 leading-none">{t('expiredInvoicesLabel')}</span>
                           <span className="text-3xl font-black italic text-white font-mono leading-none mt-1">{metric_invoice_expired}</span>
-                          <span className="text-[9px] font-bold text-zinc-500 uppercase tracking-widest mt-1.5">Tổng số</span>
+                          <span className="text-[9px] font-bold text-zinc-500 uppercase tracking-widest mt-1.5">{t('totalLabel')}</span>
                         </div>
 
                         {/* KPI 3 */}
                         <div className="bg-[#11131a] border border-white/5 p-4 rounded-[1.2rem] flex flex-col justify-center items-center shadow-xl text-center hover:border-zinc-800 transition-colors">
-                          <span className="text-[10px] font-black text-[#f43f5e] uppercase tracking-wide mb-1 leading-none">Hóa đơn mới</span>
+                          <span className="text-[10px] font-black text-[#f43f5e] uppercase tracking-wide mb-1 leading-none">{t('newInvoicesLabel')}</span>
                           <span className="text-3xl font-black italic text-white font-mono leading-none mt-1">{metric_invoice_new}</span>
-                          <span className="text-[9px] font-bold text-zinc-500 uppercase tracking-widest mt-1.5">Tổng số</span>
+                          <span className="text-[9px] font-bold text-zinc-500 uppercase tracking-widest mt-1.5">{t('totalLabel')}</span>
                         </div>
 
                         {/* KPI 4 */}
                         <div className="bg-[#11131a] border border-white/0 mb-0 md:mb-1 hover:border-[#CCFF00]/45 border-white/5 p-4 rounded-[1.2rem] flex flex-col justify-center items-center shadow-xl text-center transition-colors">
-                          <span className="text-[10px] font-black text-[#CCFF00] uppercase tracking-wide mb-1 leading-none">Hội viên hôm nay</span>
+                          <span className="text-[10px] font-black text-[#CCFF00] uppercase tracking-wide mb-1 leading-none">{t('membersTodayLabel')}</span>
                           <span className="text-3xl font-black italic text-white font-mono leading-none mt-1">{metric_member_today}</span>
-                          <span className="text-[9px] font-bold text-zinc-500 uppercase tracking-widest mt-1.5">Tổng số</span>
+                          <span className="text-[9px] font-bold text-zinc-500 uppercase tracking-widest mt-1.5">{t('totalLabel')}</span>
                         </div>
                       </div>
 
@@ -9558,7 +9814,7 @@ export default function App() {
                         <div className="p-6 border-b border-white/5 flex justify-between items-center bg-white/[0.005]">
                           <h3 className="text-sm font-black uppercase text-white tracking-widest flex items-center gap-2">
                             <Users className="w-4 h-4 text-[#CCFF00]" />
-                            Hội viên tập hôm nay
+                            {t('membersTrainingTodayLabel')}
                           </h3>
                         </div>
 
@@ -9566,12 +9822,12 @@ export default function App() {
                           <table className="w-full text-left min-w-[550px] border-collapse">
                             <thead>
                               <tr className="text-[10.5px] font-black font-mono text-zinc-500 uppercase border-b border-white/5 bg-white/[0.005] tracking-widest">
-                                <th className="px-6 py-4 text-center">STT</th>
-                                <th className="px-6 py-4">Hình ảnh</th>
-                                <th className="px-6 py-4">Khách hàng</th>
-                                <th className="px-6 py-4">Điện thoại</th>
-                                <th className="px-6 py-4">Dịch vụ</th>
-                                <th className="px-6 py-4">Ngày</th>
+                                <th className="px-6 py-4 text-center">{t('orderNo')}</th>
+                                <th className="px-6 py-4">{t('image')}</th>
+                                <th className="px-6 py-4">{t('customer')}</th>
+                                <th className="px-6 py-4">{t('phoneLabel')}</th>
+                                <th className="px-6 py-4">{t('serviceLabel')}</th>
+                                <th className="px-6 py-4">{t('dateLabel')}</th>
                               </tr>
                             </thead>
                             <tbody className="divide-y divide-white/5">
@@ -9595,7 +9851,7 @@ export default function App() {
                                   <td className="px-6 py-3 font-mono text-zinc-400 text-xs">{item.phone}</td>
                                   <td className="px-6 py-3">
                                     <span className="text-[10px] text-zinc-350 font-bold bg-white/5 border border-white/5 px-2 py-1 rounded">
-                                      {item.package}
+                                      {translatePackageName(item.package)}
                                     </span>
                                   </td>
                                   <td className="px-6 py-3 font-mono text-xs text-zinc-400 font-bold">{item.timeStr}</td>
@@ -9627,14 +9883,14 @@ export default function App() {
                   <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-blue-500 to-[#CCFF00] opacity-70 group-hover:opacity-100 transition-opacity" />
                   <div className="flex justify-between items-start">
                     <div>
-                      <p className="text-[9px] font-black font-mono text-zinc-500 uppercase tracking-widest">TỔNG TÀI KHOẢN</p>
+                      <p className="text-[9px] font-black font-mono text-zinc-500 uppercase tracking-widest">{lang === 'vi' ? "TỔNG TÀI KHOẢN" : (lang === 'zh' ? "账户总数" : "TOTAL ACCOUNTS")}</p>
                       <p className="text-2xl font-black text-white mt-1 font-mono tracking-tight group-hover:text-[#CCFF00] transition-colors">{members.length}</p>
                     </div>
                     <div className="p-2 bg-white/5 rounded-xl text-blue-400 group-hover:scale-110 transition-transform">
                       <Users className="w-5 h-5" />
                     </div>
                   </div>
-                  <p className="text-[10px] text-zinc-500 mt-2 italic font-medium">Hồ sơ đã tạo tài khoản</p>
+                  <p className="text-[10px] text-zinc-500 mt-2 italic font-medium">{lang === 'vi' ? "Hồ sơ đã tạo tài khoản" : (lang === 'zh' ? "已注册登录凭据" : "Profiles with credentials")}</p>
                 </div>
 
                 {/* Account Status Active (Username config) */}
@@ -9642,7 +9898,7 @@ export default function App() {
                   <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-emerald-500 to-[#CCFF00] opacity-70 group-hover:opacity-100 transition-opacity" />
                   <div className="flex justify-between items-start">
                     <div>
-                      <p className="text-[9px] font-black font-mono text-zinc-500 uppercase tracking-widest">ĐÃ THIẾT LẬP USERNAME</p>
+                      <p className="text-[9px] font-black font-mono text-zinc-500 uppercase tracking-widest">{lang === 'vi' ? "ĐÃ THIẾT LẬP USERNAME" : (lang === 'zh' ? "已设用户名" : "USERNAMES CONFIGURED")}</p>
                       <p className="text-2xl font-black text-[#CCFF00] mt-1 font-mono tracking-tight">
                         {members.filter(m => m.username).length}
                       </p>
@@ -9651,7 +9907,7 @@ export default function App() {
                       <Lock className="w-5 h-5" />
                     </div>
                   </div>
-                  <p className="text-[10px] text-emerald-500 mt-2 italic font-medium">Sẵn sàng đăng nhập App</p>
+                  <p className="text-[10px] text-emerald-500 mt-2 italic font-medium">{lang === 'vi' ? "Sẵn sàng đăng nhập App" : (lang === 'zh' ? "已可登录 App" : "Ready for app login")}</p>
                 </div>
 
                 {/* Active Membership Status */}
@@ -9659,7 +9915,7 @@ export default function App() {
                   <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-cyan-500 to-[#CCFF00] opacity-70 group-hover:opacity-100 transition-opacity" />
                   <div className="flex justify-between items-start">
                     <div>
-                      <p className="text-[9px] font-black font-mono text-zinc-500 uppercase tracking-widest">TÀI KHOẢN HOẠT ĐỘNG</p>
+                      <p className="text-[9px] font-black font-mono text-zinc-500 uppercase tracking-widest">{lang === 'vi' ? "TÀI KHOẢN HOẠT ĐỘNG" : (lang === 'zh' ? "有效活跃账户" : "ACTIVE MEMBERSHIPS")}</p>
                       <p className="text-2xl font-black text-white mt-1 font-mono tracking-tight">
                         {members.filter(m => m.status === 'Hoạt động').length}
                       </p>
@@ -9668,7 +9924,7 @@ export default function App() {
                       <Activity className="w-5 h-5" />
                     </div>
                   </div>
-                  <p className="text-[10px] text-cyan-400 mt-2 italic font-medium">Gói hội viên đang hoạt động</p>
+                  <p className="text-[10px] text-cyan-400 mt-2 italic font-medium">{lang === 'vi' ? "Gói hội viên đang hoạt động" : (lang === 'zh' ? "具有效会员合约" : "Active membership cards")}</p>
                 </div>
 
                 {/* Credentials missing/suspended */}
@@ -9676,7 +9932,7 @@ export default function App() {
                   <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-rose-500 to-amber-500 opacity-70 group-hover:opacity-100 transition-opacity" />
                   <div className="flex justify-between items-start">
                     <div>
-                      <p className="text-[9px] font-black font-mono text-zinc-500 uppercase tracking-widest">CHƯA THIẾT LẬP / HẾT HẠN</p>
+                      <p className="text-[9px] font-black font-mono text-zinc-500 uppercase tracking-widest">{lang === 'vi' ? "CHƯA THIẾT LẬP / HẾT HẠN" : (lang === 'zh' ? "待设 / 已到期" : "UNCONFIGURED / EXPIRED")}</p>
                       <p className="text-2xl font-black text-rose-500 mt-1 font-mono tracking-tight">
                         {members.filter(m => !m.username || m.status !== 'Hoạt động').length}
                       </p>
@@ -9685,7 +9941,7 @@ export default function App() {
                       <ShieldAlert className="w-5 h-5" />
                     </div>
                   </div>
-                  <p className="text-[10px] text-rose-450 mt-2 italic font-medium">Cần hoàn thiện thông tin</p>
+                  <p className="text-[10px] text-rose-450 mt-2 italic font-medium">{lang === 'vi' ? "Cần hoàn thiện thông tin" : (lang === 'zh' ? "需要完善或续费" : "Requires setup or renewal")}</p>
                 </div>
               </div>
 
@@ -9695,8 +9951,8 @@ export default function App() {
                   {/* Header & Local search */}
                   <div className="p-6 border-b border-white/10 bg-white/[0.01] flex flex-col md:flex-row md:items-center justify-between gap-4">
                     <div>
-                      <h3 className="text-sm font-black font-mono text-white uppercase tracking-widest">DANH SÁCH TÀI KHOẢN HỘI VIÊN</h3>
-                      <p className="text-[10px] text-zinc-500 mt-1">Cung cấp bộ lọc tìm kiếm và nút Reset mật khẩu nhanh.</p>
+                      <h3 className="text-sm font-black font-mono text-white uppercase tracking-widest">{lang === 'vi' ? "DANH SÁCH TÀI KHOẢN HỘI VIÊN" : (lang === 'zh' ? "会员账号列表" : "MEMBER ACCOUNTS LIST")}</h3>
+                      <p className="text-[10px] text-zinc-500 mt-1">{lang === 'vi' ? "Cung cấp bộ lọc tìm kiếm và nút Reset mật khẩu nhanh." : (lang === 'zh' ? "提供搜索过滤及快速重置密码功能。" : "Search filter with quick password reset access.")}</p>
                     </div>
                     <div className="relative w-full md:w-64">
                       <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500" />
@@ -9704,7 +9960,7 @@ export default function App() {
                         type="text"
                         value={accountsSearchQuery}
                         onChange={(e) => setAccountsSearchQuery(e.target.value)}
-                        placeholder="Tìm theo tên, mã, SĐT, ID..."
+                        placeholder={lang === 'vi' ? "Tìm theo tên, mã, SĐT, ID..." : (lang === 'zh' ? "按姓名、卡号、手机或账号ID检索..." : "Search by name, code, phone, ID...")}
                         className="w-full pl-10 pr-4 py-2 bg-zinc-900 border border-white/10 rounded-xl text-xs text-white placeholder-zinc-500 font-medium focus:outline-none focus:border-[#CCFF00] focus:ring-1 focus:ring-[#CCFF00]/20 duration-150 transition-all"
                       />
                     </div>
@@ -9727,8 +9983,8 @@ export default function App() {
                         return (
                           <div className="flex flex-col items-center justify-center h-full py-12 text-center">
                             <Search className="w-8 h-8 text-zinc-650 mb-3" />
-                            <p className="text-xs text-zinc-500 font-bold uppercase tracking-wider">Không tìm thấy tài khoản</p>
-                            <p className="text-[10px] text-zinc-650 mt-1">Thử thay đổi từ khóa hoặc tìm theo Mã hội viên bên cạnh.</p>
+                            <p className="text-xs text-zinc-500 font-bold uppercase tracking-wider">{lang === 'vi' ? "Không tìm thấy tài khoản" : (lang === 'zh' ? "未找到符合的账号" : "No accounts found")}</p>
+                            <p className="text-[10px] text-zinc-650 mt-1">{lang === 'vi' ? "Thử thay đổi từ khóa hoặc tìm theo Mã hội viên bên cạnh." : (lang === 'zh' ? "请尝试更改关键词或在右侧搜索会员ID。" : "Try changing keywords or searching by Member ID on the right.")}</p>
                           </div>
                         );
                       }
@@ -9738,13 +9994,13 @@ export default function App() {
                           <thead>
                             <tr className="text-[10px] font-black font-mono text-zinc-500 uppercase border-b border-white/10 bg-white/[0.005]">
                               <th className="px-6 py-4 tracking-wider italic">{t('fullName')}</th>
-                              <th className="px-6 py-4 tracking-wider italic text-center">MÃ HỘI VIÊN</th>
-                              <th className="px-6 py-4 tracking-wider italic text-center">ID TÀI KHOẢN</th>
+                              <th className="px-6 py-4 tracking-wider italic text-center">{lang === 'vi' ? "MÃ HỘI VIÊN" : (lang === 'zh' ? "会员 ID" : "MEMBER ID")}</th>
+                              <th className="px-6 py-4 tracking-wider italic text-center">{lang === 'vi' ? "ID TÀI KHOẢN" : (lang === 'zh' ? "账号 ID" : "ACCOUNT ID")}</th>
                               {user?.role === "ADMIN" && (
-                                <th className="px-6 py-4 tracking-wider italic text-center">MẬT KHẨU</th>
+                                <th className="px-6 py-4 tracking-wider italic text-center">{lang === 'vi' ? "MẬT KHẨU" : (lang === 'zh' ? "登录密码" : "PASSWORD")}</th>
                               )}
                               <th className="px-6 py-4 tracking-wider italic text-center">{t('status')}</th>
-                              <th className="px-6 py-4 tracking-wider italic text-right">Reset MK</th>
+                              <th className="px-6 py-4 tracking-wider italic text-right">{lang === 'vi' ? "Reset MK" : (lang === 'zh' ? "重置密码" : "Reset Pwd")}</th>
                             </tr>
                           </thead>
                           <tbody className="divide-y divide-white/5">
@@ -9778,7 +10034,7 @@ export default function App() {
                                         type="button"
                                         onClick={() => setRevealedPasswords(prev => ({ ...prev, [member.id]: !prev[member.id] }))}
                                         className="text-zinc-500 hover:text-white transition-colors"
-                                        title="Hiển thị mật khẩu"
+                                        title={lang === 'vi' ? "Hiển thị mật khẩu" : (lang === 'zh' ? "显示/隐藏密码" : "Show/Hide Password")}
                                       >
                                         {revealedPasswords[member.id] ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
                                       </button>
@@ -9794,9 +10050,9 @@ export default function App() {
                                   <button
                                     onClick={() => handleResetMemberPassword(member.id, member.fullName)}
                                     className="px-3 py-1.5 bg-zinc-900 border border-white/10 text-zinc-400 hover:text-black hover:bg-[#CCFF00] hover:border-[#CCFF00] rounded-lg transition-all duration-150 flex items-center gap-1 text-[9px] font-black uppercase tracking-wider ml-auto active:scale-95 animate-fadeIn"
-                                    title="Khôi phục về mật khẩu mặc định 123456"
+                                    title={lang === 'vi' ? "Khôi phục về mật khẩu mặc định 123456" : (lang === 'zh' ? "恢复为默认密码 123456" : "Reset to default password 123456")}
                                   >
-                                    <KeyRound className="w-3 h-3" /> Reset
+                                    <KeyRound className="w-3 h-3" /> {lang === 'vi' ? "Reset" : (lang === 'zh' ? "重置" : "Reset")}
                                   </button>
                                 </td>
                               </tr>
@@ -9811,14 +10067,14 @@ export default function App() {
                 {/* Cách 2 / Right panel: Verify and Search to reset for staff */}
                 <div className="lg:col-span-4 bg-zinc-950 border border-white/10 rounded-[2.5rem] p-6 flex flex-col gap-5 overflow-y-auto custom-scrollbar shadow-2xl min-h-[400px]">
                   <div>
-                    <span className="text-[9px] font-black font-mono text-[#CCFF00] uppercase tracking-widest border-b border-[#CCFF00]/15 pb-1 block w-fit">CÁCH 2: DÀNH CHO NHÂN VIÊN</span>
-                    <h3 className="text-sm font-black font-mono text-white uppercase tracking-widest mt-2 leading-none italic">TRUY TÌM TÀI KHOẢN KHẨN CẤP</h3>
-                    <p className="text-[10px] text-zinc-500 leading-relaxed mt-1">Truy tra hồ sơ bằng Tên hội viên, SĐT, Mã hội viên hoặc ID tài khoản để cấp lại mật khẩu ngay lập tức.</p>
+                    <span className="text-[9px] font-black font-mono text-[#CCFF00] uppercase tracking-widest border-b border-[#CCFF00]/15 pb-1 block w-fit">{lang === 'vi' ? "CÁCH 2: DÀNH CHO NHÂN VIÊN" : (lang === 'zh' ? "通道二: 针对工作人员" : "METHOD 2: FOR STAFF MEMBERS")}</span>
+                    <h3 className="text-sm font-black font-mono text-white uppercase tracking-widest mt-2 leading-none italic">{lang === 'vi' ? "TRUY TÌM TÀI KHOẢN KHẨN CẤP" : (lang === 'zh' ? "紧急追溯及重置" : "EMERGENCY ACCOUNT RETRIEVAL")}</h3>
+                    <p className="text-[10px] text-zinc-500 leading-relaxed mt-1">{lang === 'vi' ? "Truy tra hồ sơ bằng Tên hội viên, SĐT, Mã hội viên hoặc ID tài khoản để cấp lại mật khẩu ngay lập tức." : (lang === 'zh' ? "输入姓名、电话、会员卡号或账号ID以进行紧急查找并直接生成/重置登录密码。" : "Search profile by Name, Phone, Member ID, or Username to instantly reset credentials.")}</p>
                   </div>
 
                   {/* Search query box */}
                   <div className="space-y-2">
-                    <label className="text-[9px] font-black font-mono text-zinc-400 uppercase tracking-wider">HỌ TÊN / SĐT / MÃ HỘI VIÊN / ID</label>
+                    <label className="text-[9px] font-black font-mono text-zinc-400 uppercase tracking-wider">{lang === 'vi' ? "HỌ TÊN / SĐT / MÃ HỘI VIÊN / ID" : (lang === 'zh' ? "姓名 / 电话 / 会员卡号 / ID" : "FULL NAME / PHONE / MEMBER ID / ACCOUNT ID")}</label>
                     <div className="flex gap-2">
                       <div className="relative flex-1">
                         <input
@@ -9828,7 +10084,7 @@ export default function App() {
                           onKeyDown={(e) => {
                             if (e.key === "Enter") handleSearchMemberCode();
                           }}
-                          placeholder="Ví dụ: Nguyễn Phi Hoài Nam, MEM001..."
+                          placeholder={lang === 'vi' ? "Ví dụ: Nguyễn Phi Hoài Nam, MEM001..." : (lang === 'zh' ? "例如: 张三, MEM001, 138..." : "E.g., John Doe, MEM001, 098...")}
                           className="w-full pl-3 pr-3 py-3 bg-zinc-900/80 border border-white/10 rounded-xl text-xs text-white placeholder-zinc-650 font-mono focus:outline-none focus:border-[#CCFF00] transition-all"
                         />
                       </div>
@@ -9836,7 +10092,7 @@ export default function App() {
                         onClick={handleSearchMemberCode}
                         className="px-4 bg-[#CCFF00] text-black font-black uppercase tracking-widest text-[9px] rounded-xl hover:bg-white transition-all flex items-center justify-center gap-1 shadow-md shrink-0 active:scale-95"
                       >
-                        <Search className="w-3.5 h-3.5 stroke-[2.5]" /> Tìm
+                        <Search className="w-3.5 h-3.5 stroke-[2.5]" /> {lang === 'vi' ? "Tìm" : (lang === 'zh' ? "搜索" : "Find")}
                       </button>
                     </div>
                   </div>
@@ -9850,7 +10106,7 @@ export default function App() {
                         className="bg-red-500/10 border border-red-500/20 p-4 rounded-2xl text-center"
                       >
                         <AlertCircle className="w-6 h-6 text-red-500 mx-auto mb-2" />
-                        <p className="text-xs font-bold text-red-400 uppercase tracking-tight">KẾT QUẢ TRUY TRÝ THẤT BẠI</p>
+                        <p className="text-xs font-bold text-red-400 uppercase tracking-tight">{lang === 'vi' ? "KẾT QUẢ TRUY VẾT THẤT BẠI" : (lang === 'zh' ? "查找账号失败" : "RETRIEVAL FAILED")}</p>
                         <p className="text-[10px] text-zinc-400 mt-1 leading-relaxed">{searchError}</p>
                       </motion.div>
                     ) : foundMember ? (
@@ -9867,33 +10123,33 @@ export default function App() {
                           </div>
                           <div>
                             <h4 className="font-extrabold uppercase text-white tracking-tight text-xs group-hover:text-[#CCFF00] transition-colors">{foundMember.fullName}</h4>
-                            <p className="text-[9px] font-mono text-zinc-500 mt-0.5">SĐT: {foundMember.phone || t('noData')}</p>
+                            <p className="text-[9px] font-mono text-zinc-500 mt-0.5">{lang === 'vi' ? "SĐT: " : (lang === 'zh' ? "电话: " : "Phone: ")}{foundMember.phone || t('noData')}</p>
                           </div>
                         </div>
 
                         <div className="grid grid-cols-2 gap-3 text-left">
                           <div>
-                            <span className="text-[8px] font-black font-mono text-zinc-500 block uppercase tracking-wider">MÃ HỘI VIÊN</span>
+                            <span className="text-[8px] font-black font-mono text-zinc-500 block uppercase tracking-wider">{lang === 'vi' ? "MÃ HỘI VIÊN" : (lang === 'zh' ? "会员 ID" : "MEMBER ID")}</span>
                             <span className="text-[10px] font-black font-mono text-[#CCFF00] bg-[#CCFF00]/10 px-2 py-0.5 rounded border border-[#CCFF00]/15 inline-block mt-1">
                               {foundMember.memberCode || `MEM${foundMember.id.toString().padStart(3, '0')}`}
                             </span>
                           </div>
                           <div>
-                            <span className="text-[8px] font-black font-mono text-zinc-500 block uppercase tracking-wider">ID TÀI KHOẢN</span>
+                            <span className="text-[8px] font-black font-mono text-zinc-500 block uppercase tracking-wider">{lang === 'vi' ? "ID TÀI KHOẢN" : (lang === 'zh' ? "账号 ID" : "ACCOUNT ID")}</span>
                             <span className="text-[10px] font-black font-mono text-white bg-white/5 px-2 py-1 rounded mt-1 inline-block border border-white/5">
                               {foundMember.username || `mem_${foundMember.id}`}
                             </span>
                           </div>
                           <div>
-                            <span className="text-[8px] font-black font-mono text-zinc-500 block uppercase tracking-wider">TRẠNG THÁI HIỆU LỰC</span>
+                            <span className="text-[8px] font-black font-mono text-zinc-500 block uppercase tracking-wider">{lang === 'vi' ? "TRẠNG THÁI HIỆU LỰC" : (lang === 'zh' ? "账户有效状态" : "MEMBERSHIP STATUS")}</span>
                             <span className={`text-[8px] font-black px-2 py-0.5 rounded uppercase tracking-wider inline-block mt-1.5 ${foundMember.status === 'Hoạt động' ? 'bg-[#CCFF00]/10 text-[#CCFF00]' : 'bg-red-500/10 text-red-500'}`}>
                               {foundMember.status === 'Hoạt động' ? t('statusActive') : t('statusExpired')}
                             </span>
                           </div>
                           <div>
-                            <span className="text-[8px] font-black font-mono text-zinc-500 block uppercase tracking-wider">BẢO MẬT MẬT KHẨU</span>
+                            <span className="text-[8px] font-black font-mono text-zinc-500 block uppercase tracking-wider">{lang === 'vi' ? "BẢO MẬT MẬT KHẨU" : (lang === 'zh' ? "密码安全性" : "PASSWORD SECURITY")}</span>
                             <span className="text-[10px] font-black font-mono text-zinc-400 inline-block mt-1">
-                              •••••••• (ĐÃ MÃ HÓA)
+                              {lang === 'vi' ? "•••••••• (ĐÃ MÃ HÓA)" : (lang === 'zh' ? "•••••••• (已加密保护)" : "•••••••• (ENCRYPTED)")}
                             </span>
                           </div>
                         </div>
@@ -9902,7 +10158,7 @@ export default function App() {
                           onClick={() => handleResetMemberPassword(foundMember.id, foundMember.fullName)}
                           className="w-full bg-[#CCFF00] hover:bg-white text-black font-black py-3 rounded-2xl transition-all duration-150 text-[10px] uppercase tracking-widest flex items-center justify-center gap-2 mt-4 shadow-lg shadow-[#CCFF00]/10 active:scale-95"
                         >
-                          <KeyRound className="w-3.5 h-3.5" /> RESET MẬT KHẨU KHẨN CẤP
+                          <KeyRound className="w-3.5 h-3.5" /> {lang === 'vi' ? "RESET MẬT KHẨU KHẨN CẤP" : (lang === 'zh' ? "紧急重置密码" : "EMERGENCY RESET PASSWORD")}
                         </button>
                       </motion.div>
                     ) : (
@@ -9910,8 +10166,8 @@ export default function App() {
                         <div className="w-10 h-10 rounded-2xl bg-zinc-900 border border-white/5 flex items-center justify-center mx-auto text-zinc-650 shadow mb-3">
                           <UserCheck className="w-5 h-5 stroke-[1.5]" />
                         </div>
-                        <h4 className="text-[11px] font-black uppercase tracking-wider text-zinc-400">Chờ lệnh truy vết</h4>
-                        <p className="text-[9px] text-zinc-600 mt-1 leading-relaxed">Hãy nhập Họ tên, SĐT, Mã hội viên (Ví dụ: MEM001) hoặc ID bên trên để tra cứu khôi phục tài khoản.</p>
+                        <h4 className="text-[11px] font-black uppercase tracking-wider text-zinc-400">{lang === 'vi' ? "Chờ lệnh truy vết" : (lang === 'zh' ? "等待查询指令" : "Awaiting search query")}</h4>
+                        <p className="text-[9px] text-zinc-600 mt-1 leading-relaxed">{lang === 'vi' ? "Hãy nhập Họ tên, SĐT, Mã hội viên (Ví dụ: MEM001) hoặc ID bên trên để tra cứu khôi phục tài khoản." : (lang === 'zh' ? "请输入姓名、电话、会员卡号或账号ID以查询并重设账户密码。" : "Enter Full Name, Phone, Member ID, or Account ID to locate and restore account.")}</p>
                       </div>
                     )}
                   </div>
@@ -10096,14 +10352,18 @@ export default function App() {
                   <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-blue-500 to-[#CCFF00] opacity-70 group-hover:opacity-100 transition-opacity" />
                   <div className="flex justify-between items-start">
                     <div>
-                      <p className="text-[9px] font-black font-mono text-zinc-500 uppercase tracking-widest">{t('allMembers') || "TỔNG HỘI VIÊN"}</p>
+                      <p className="text-[9px] font-black font-mono text-zinc-500 uppercase tracking-widest">
+                        {lang === 'vi' ? "TỔNG HỘI VIÊN" : lang === 'zh' ? "全部会员" : "TOTAL MEMBERS"}
+                      </p>
                       <p className="text-2xl font-black text-white mt-1 font-mono tracking-tight group-hover:text-[#CCFF00] transition-colors">{members.length}</p>
                     </div>
                     <div className="p-2 bg-white/5 rounded-xl text-blue-400 group-hover:scale-110 transition-transform">
                       <Users className="w-5 h-5" />
                     </div>
                   </div>
-                  <p className="text-[10px] text-zinc-500 mt-2 italic font-medium">Hồ sơ đã được số hoá</p>
+                  <p className="text-[10px] text-zinc-500 mt-2 italic font-medium">
+                    {lang === 'vi' ? "Hồ sơ đã được số hoá" : lang === 'zh' ? "档案已数字化" : "Digitized member profiles"}
+                  </p>
                 </div>
 
                 {/* Active Members */}
@@ -10111,7 +10371,9 @@ export default function App() {
                   <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-emerald-500 to-[#CCFF00] opacity-70 group-hover:opacity-100 transition-opacity" />
                   <div className="flex justify-between items-start">
                     <div>
-                      <p className="text-[9px] font-black font-mono text-zinc-500 uppercase tracking-widest">{t('statusActive') || "ĐANG HOẠT ĐỘNG"}</p>
+                      <p className="text-[9px] font-black font-mono text-zinc-500 uppercase tracking-widest">
+                        {lang === 'vi' ? "ĐANG HOẠT ĐỘNG" : lang === 'zh' ? "有效会员" : "ACTIVE MEMBERS"}
+                      </p>
                       <p className="text-2xl font-black text-[#CCFF00] mt-1 font-mono tracking-tight">
                         {members.filter(m => m.status === 'Hoạt động').length}
                       </p>
@@ -10120,7 +10382,9 @@ export default function App() {
                       <Activity className="w-5 h-5" />
                     </div>
                   </div>
-                  <p className="text-[10px] text-emerald-500 mt-2 italic font-medium">Có quyền check-in hợp lệ</p>
+                  <p className="text-[10px] text-emerald-500 mt-2 italic font-medium">
+                    {lang === 'vi' ? "Có quyền check-in hợp lệ" : lang === 'zh' ? "拥有有效的签到权限" : "Valid check-in privileges"}
+                  </p>
                 </div>
 
                 {/* Expired Members */}
@@ -10128,7 +10392,9 @@ export default function App() {
                   <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-red-500 to-amber-500 opacity-70 group-hover:opacity-100 transition-opacity" />
                   <div className="flex justify-between items-start">
                     <div>
-                      <p className="text-[9px] font-black font-mono text-zinc-500 uppercase tracking-widest">{t('statusExpired') || "HẾT HẠN GÓI"}</p>
+                      <p className="text-[9px] font-black font-mono text-zinc-500 uppercase tracking-widest">
+                        {lang === 'vi' ? "HẾT HẠN GÓI" : lang === 'zh' ? "已过期卡项" : "EXPIRED CUSTOMERS"}
+                      </p>
                       <p className="text-2xl font-black text-rose-500 mt-1 font-mono tracking-tight">
                         {members.filter(m => m.status !== 'Hoạt động').length}
                       </p>
@@ -10137,7 +10403,9 @@ export default function App() {
                       <ClockIcon className="w-5 h-5" />
                     </div>
                   </div>
-                  <p className="text-[10px] text-rose-400 mt-2 italic font-medium">Yêu cầu gia hạn tập luyện</p>
+                  <p className="text-[10px] text-rose-400 mt-2 italic font-medium">
+                    {lang === 'vi' ? "Yêu cầu gia hạn tập luyện" : lang === 'zh' ? "需办理卡片续费" : "Workout renewal status required"}
+                  </p>
                 </div>
 
                 {/* Checked in Today */}
@@ -10145,7 +10413,9 @@ export default function App() {
                   <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-pink-500 to-purple-500 opacity-70 group-hover:opacity-100 transition-opacity" />
                   <div className="flex justify-between items-start">
                     <div>
-                      <p className="text-[9px] font-black font-mono text-zinc-500 uppercase tracking-widest">CHECK-IN HÔM NAY</p>
+                      <p className="text-[9px] font-black font-mono text-zinc-500 uppercase tracking-widest">
+                        {lang === 'vi' ? "CHECK-IN HÔM NAY" : lang === 'zh' ? "今日签到人数" : "CHECK-IN TODAY"}
+                      </p>
                       <p className="text-2xl font-black text-purple-400 mt-1 font-mono tracking-tight">
                         {stats.checkinsToday}
                       </p>
@@ -10154,16 +10424,18 @@ export default function App() {
                       <Zap className="w-5 h-5" />
                     </div>
                   </div>
-                  <p className="text-[10px] text-purple-400 mt-2 italic font-medium">Lượt quét thẻ trong ngày</p>
+                  <p className="text-[10px] text-purple-400 mt-2 italic font-medium">
+                    {lang === 'vi' ? "Lượt quét thẻ trong ngày" : lang === 'zh' ? "今日扫码与签到次数" : "Total scans registered today"}
+                  </p>
                 </div>
               </div>
 
               {/* Segment Filters */}
               <div className="flex items-center gap-1.5 p-1 bg-zinc-950/80 border border-white/10 rounded-2xl overflow-x-auto custom-scrollbar shrink-0">
                 {[
-                  { id: "ALL", label: "Tất cả hội viên", count: members.length },
-                  { id: "ACTIVE", label: "Hoạt động", count: members.filter(m => m.status === 'Hoạt động').length },
-                  { id: "EXPIRED", label: "Đã hết hạn", count: members.filter(m => m.status !== 'Hoạt động').length }
+                  { id: "ALL", label: lang === 'vi' ? "Tất cả hội viên" : lang === 'zh' ? "全部会员" : "All members", count: members.length },
+                  { id: "ACTIVE", label: lang === 'vi' ? "Hoạt động" : lang === 'zh' ? "活跃中" : "Active", count: members.filter(m => m.status === 'Hoạt động').length },
+                  { id: "EXPIRED", label: lang === 'vi' ? "Đã hết hạn" : lang === 'zh' ? "已过期" : "Expired", count: members.filter(m => m.status !== 'Hoạt động').length }
                 ].map((tier) => (
                   <button
                     key={tier.id}
@@ -10216,7 +10488,7 @@ export default function App() {
                       <div className="py-24 text-center bg-zinc-950/40 rounded-[2.5rem] border border-white/5 border-dashed flex flex-col items-center justify-center">
                         <Users className="w-12 h-12 text-zinc-650 mb-4" />
                         <p className="text-[10px] font-mono text-zinc-500 uppercase tracking-[0.4em]">
-                          KHÔNG TÌM THẤY HỘI VIÊN PHÙ HỢP
+                          {lang === 'vi' ? "KHÔNG TÌM THẤY HỘI VIÊN PHÙ HỢP" : lang === 'zh' ? "没有找到符合条件的会员" : "NO MATCHING MEMBERS FOUND"}
                         </p>
                       </div>
                     );
@@ -10268,12 +10540,12 @@ export default function App() {
                                 <div className="flex flex-wrap items-center gap-x-1.5 gap-y-0.5 mt-0.5 text-[8px] text-zinc-500 font-mono">
                                   {member.gender && (
                                     <span className="bg-zinc-950 border border-white/5 px-1 py-0.2 rounded">
-                                      {member.gender}
+                                      {t(member.gender)}
                                     </span>
                                   )}
                                   {member.dob && (
                                     <span className="bg-zinc-950 border border-white/5 px-1 py-0.2 rounded">
-                                      NS: {member.dob}
+                                      {lang === 'vi' ? "NS" : lang === 'zh' ? "生日" : "DOB"}: {member.dob}
                                     </span>
                                   )}
                                 </div>
@@ -10283,27 +10555,31 @@ export default function App() {
                             {/* Section 3: Contact & Package info */}
                             <div className="grid grid-cols-2 gap-2 min-w-[220px] lg:flex-1">
                               <div className="space-y-0.5">
-                                <span className="text-[7.5px] font-mono text-zinc-500 uppercase tracking-widest block">LIÊN HỆ</span>
+                                <span className="text-[7.5px] font-mono text-zinc-500 uppercase tracking-widest block">
+                                  {lang === 'vi' ? "LIÊN HỆ" : lang === 'zh' ? "联系方式" : "CONTACT"}
+                                </span>
                                 <div className="space-y-0.5">
                                   <div className="flex items-center gap-1 text-[10px] text-zinc-400">
                                     <Phone className="w-2.5 h-2.5 text-[#CCFF00]/60 shrink-0" />
-                                    <span className="font-semibold">{member.phone || 'Không có sđt'}</span>
+                                    <span className="font-semibold">{member.phone || (lang === 'vi' ? 'Không có sđt' : lang === 'zh' ? '无电话' : 'No phone')}</span>
                                   </div>
                                   <div className="flex items-center gap-1 text-[10px] text-zinc-400 truncate max-w-[120px]">
                                     <Mail className="w-2.5 h-2.5 text-blue-400/60 shrink-0" />
-                                    <span className="font-semibold truncate">{member.email || 'Không có email'}</span>
+                                    <span className="font-semibold truncate">{member.email || (lang === 'vi' ? 'Không có email' : lang === 'zh' ? '无邮箱' : 'No email')}</span>
                                   </div>
                                 </div>
                               </div>
                               <div className="space-y-0.5">
-                                <span className="text-[7.5px] font-mono text-zinc-500 uppercase tracking-widest block">GÓI TẬP HIỆN TẠI</span>
+                                <span className="text-[7.5px] font-mono text-zinc-500 uppercase tracking-widest block">
+                                  {lang === 'vi' ? "GÓI TẬP HIỆN TẠI" : lang === 'zh' ? "当前课程包" : "CURRENT PACKAGE"}
+                                </span>
                                 <div className="space-y-0.5">
                                   <div className="flex items-center gap-1 text-[10px] text-zinc-300 font-bold uppercase italic">
                                     <Dumbbell className="w-2.5 h-2.5 text-[#CCFF00]/70 shrink-0" />
-                                    <span>{t(member.package)}</span>
+                                    <span>{translatePackageName(member.package)}</span>
                                   </div>
                                   <div className="text-[9px] text-zinc-500 font-mono">
-                                    KM: {member.discount}% | {member.paymentMethod === "Cash" ? "TM" : "CK"}
+                                    {lang === 'vi' ? "KM" : lang === 'zh' ? "折" : "DISC"}: {member.discount}% | {member.paymentMethod === "Cash" ? (lang === 'vi' ? "TM" : lang === 'zh' ? "现金" : "CASH") : (lang === 'vi' ? "CK" : lang === 'zh' ? "转账" : "BANK")}
                                   </div>
                                 </div>
                               </div>
@@ -10312,7 +10588,9 @@ export default function App() {
                             {/* Section 3.5: Nhân viên phụ trách */}
                             {user?.role === "ADMIN" && (
                               <div className="space-y-0.5 min-w-[150px] lg:max-w-[200px] lg:flex-none">
-                                <span className="text-[7.5px] font-mono text-zinc-500 uppercase tracking-widest block">NV PHỤ TRÁCH</span>
+                                <span className="text-[7.5px] font-mono text-zinc-500 uppercase tracking-widest block">
+                                  {lang === 'vi' ? "NV PHỤ TRÁCH" : lang === 'zh' ? "所属会籍" : "STAFF ASSIGNED"}
+                                </span>
                                 <select
                                   value={member.createdBy || ""}
                                   onChange={async (e) => {
@@ -10328,20 +10606,28 @@ export default function App() {
                                         setMembers((prev) =>
                                           prev.map((m) => (m.id === updatedMember.id ? updatedMember : m))
                                         );
-                                        addNotification("Đã cập nhật nhân viên phụ trách!");
+                                        addNotification(
+                                          lang === 'vi' ? "Đã cập nhật nhân viên phụ trách!" : lang === 'zh' ? "所属会籍已成功变更！" : "Successfully updated assigned staff!"
+                                        );
                                         fetchData(); // sync reports
                                       } else {
-                                        addNotification("Cập nhật thất bại!", "error");
+                                        addNotification(
+                                          lang === 'vi' ? "Cập nhật thất bại!" : lang === 'zh' ? "更新失败！" : "Update failed!", "error"
+                                        );
                                       }
                                     } catch (err) {
                                       console.error(err);
-                                      addNotification("Lỗi kết nối!", "error");
+                                      addNotification(
+                                        lang === 'vi' ? "Lỗi kết nối!" : lang === 'zh' ? "连接错误！" : "Connection error!", "error"
+                                      );
                                     }
                                   }}
                                   onClick={(e) => e.stopPropagation()}
                                   className="bg-zinc-950 border border-white/5 hover:border-[#CCFF00]/40 px-2.5 py-1.5 rounded-xl outline-none text-[10px] text-zinc-300 font-bold uppercase tracking-tight w-full hover:bg-zinc-900 transition-all cursor-pointer"
                                 >
-                                  <option value="" className="text-zinc-650 bg-zinc-950">HỆ THỐNG / CHƯA GÁN</option>
+                                  <option value="" className="text-zinc-650 bg-zinc-950">
+                                    {lang === 'vi' ? "HỆ THỐNG / CHƯA GÁN" : lang === 'zh' ? "系统 / 未分配" : "SYSTEM / UNASSIGNED"}
+                                  </option>
                                   {staffMembers.map((s) => (
                                     <option key={s.id} value={s.username || s.fullName} className="bg-zinc-950 text-white">
                                       {s.fullName.toUpperCase()} {s.username ? `(${s.username})` : ""}
@@ -10357,16 +10643,21 @@ export default function App() {
                               onClick={(e) => e.stopPropagation()}
                             >
                               <div className="text-left lg:text-right">
-                                <span className="text-[7.5px] font-mono text-zinc-500 uppercase tracking-widest block mb-0.5">HẠN SỬ DỤNG</span>
+                                <span className="text-[7.5px] font-mono text-zinc-500 uppercase tracking-widest block mb-0.5">
+                                  {lang === 'vi' ? "HẠN SỬ DỤNG" : lang === 'zh' ? "有效时间" : "EXPIRY DATE"}
+                                </span>
                                 <div className="flex items-center gap-1.5">
                                   <div className="inline-flex items-center gap-1 text-[9px] font-bold font-mono text-zinc-350 bg-zinc-950 px-1.5 py-0.5 rounded border border-white/5">
                                     <Calendar className="w-2.5 h-2.5 text-blue-400" />
-                                    <span>{new Date(member.expiryDate).toLocaleDateString('vi-VN')}</span>
+                                    <span>{new Date(member.expiryDate).toLocaleDateString(lang === 'zh' ? 'zh-CN' : lang === 'vi' ? 'vi-VN' : 'en-US')}</span>
                                   </div>
                                   <span className={`text-[7.5px] font-black px-1.5 py-0.5 rounded uppercase tracking-wider ${
                                     member.status === "Hoạt động" ? 'bg-[#CCFF00]/15 text-[#CCFF00] border border-[#CCFF00]/30' : 'bg-rose-500/10 text-rose-500 border border-rose-500/20'
                                   }`}>
-                                    {member.status === "Hoạt động" ? "HOẠT ĐỘNG" : "HẾT HẠN"}
+                                    {member.status === "Hoạt động"
+                                      ? (lang === 'vi' ? "HOẠT ĐỘNG" : lang === 'zh' ? "有效" : "ACTIVE")
+                                      : (lang === 'vi' ? "HẾT HẠN" : lang === 'zh' ? "已到期" : "EXPIRED")
+                                    }
                                   </span>
                                 </div>
                               </div>
@@ -10395,13 +10686,13 @@ export default function App() {
                                     }}
                                     className="px-2 py-1 font-black text-[8px] uppercase tracking-wider rounded transition-all shadow-md active:scale-95 flex items-center gap-1 bg-white/5 border border-white/10 text-[#CCFF00] hover:text-black hover:bg-[#CCFF00] hover:border-[#CCFF00] transition-colors"
                                   >
-                                    <MessageCircle className="w-2.5 h-2.5" /> TƯƠNG TÁC
+                                    <MessageCircle className="w-2.5 h-2.5" /> {lang === 'vi' ? "TƯƠNG TÁC" : lang === 'zh' ? "互动记录" : "ENGAGE"}
                                   </button>
                                 </div>
                               ) : (
                                 <div className="inline-flex items-center gap-1 text-[8px] font-bold font-mono text-rose-500/80 bg-rose-500/10 px-2 py-1 rounded border border-rose-500/20 tracking-wider uppercase">
                                   <Trash2 className="w-2.5 h-2.5 text-rose-500" />
-                                  <span>ĐÃ XÓA MỀM</span>
+                                  <span>{lang === 'vi' ? "ĐÃ XÓA MỀM" : lang === 'zh' ? "软删除已弃用" : "SOFT DELETED"}</span>
                                 </div>
                               )}
                             </div>
@@ -10416,16 +10707,16 @@ export default function App() {
                                   onClick={(e) => {
                                     e.stopPropagation();
                                     confirmAction(
-                                      "XÁC NHẬN KHÔI PHỤC",
-                                      `Bạn có chắc chắn muốn khôi phục hội viên "${member.fullName}"?`,
+                                      lang === 'vi' ? "XÁC NHẬN KHÔI PHỤC" : lang === 'zh' ? "确认恢复会员" : "CONFIRM RESTORE",
+                                      lang === 'vi' ? `Bạn có chắc chắn muốn khôi phục hoạt động cho hội viên "${member.fullName}"?` : lang === 'zh' ? `确认要恢复会员 "${member.fullName}" 的状态吗？` : `Are you sure you want to restore active status for "${member.fullName}"?`,
                                       () => handleRestoreMember(member.id),
                                       "info"
                                     );
                                   }}
                                   className="flex-1 lg:flex-none p-1.5 bg-emerald-500/10 text-emerald-500 hover:bg-[#CCFF00] hover:text-black rounded border border-emerald-500/20 transition-all active:scale-90 flex items-center justify-center gap-1 text-[8.5px] font-bold uppercase tracking-wider min-w-[55px]"
-                                  title="Khôi phục hội viên"
+                                  title={lang === 'vi' ? "Khôi phục hội viên" : lang === 'zh' ? "恢复会员" : "Restore Member"}
                                 >
-                                  <RefreshCw className="w-2.5 h-2.5" /> <span className="lg:hidden">Khôi phục</span><span className="hidden lg:inline">Khôi phục</span>
+                                  <RefreshCw className="w-2.5 h-2.5" /> <span className="lg:hidden">{lang === 'vi' ? "Khôi phục" : lang === 'zh' ? "恢复" : "Restore"}</span><span className="hidden lg:inline">{lang === 'vi' ? "Khôi phục" : lang === 'zh' ? "恢复" : "Restore"}</span>
                                 </button>
                               ) : (
                                 <>
@@ -10436,9 +10727,9 @@ export default function App() {
                                       setIsEditModalOpen(true);
                                     }}
                                     className="flex-1 lg:flex-none p-1.5 bg-zinc-900 text-zinc-400 hover:text-white hover:bg-zinc-800 rounded border border-white/5 transition-all active:scale-90 flex items-center justify-center gap-1 text-[8.5px] font-bold uppercase tracking-wider min-w-[55px]"
-                                    title="Sửa thông tin"
+                                    title={lang === 'vi' ? "Sửa thông tin" : lang === 'zh' ? "修改信息" : "Edit Details"}
                                   >
-                                    <Edit2 className="w-2.5 h-2.5 text-[#CCFF00]" /> <span className="lg:hidden">Sửa</span>
+                                    <Edit2 className="w-2.5 h-2.5 text-[#CCFF00]" /> <span className="lg:hidden">{lang === 'vi' ? "Sửa" : lang === 'zh' ? "编辑" : "Edit"}</span>
                                   </button>
                                   <button 
                                     onClick={(e) => {
@@ -10447,25 +10738,25 @@ export default function App() {
                                       setIsRenewSelectModalOpen(true);
                                     }}
                                     className="flex-1 lg:flex-none p-1.5 bg-[#CCFF00]/10 text-[#CCFF00] hover:bg-[#CCFF00] hover:text-black rounded border border-[#CCFF00]/20 transition-all active:scale-90 flex items-center justify-center gap-1 text-[8.5px] font-bold uppercase tracking-wider min-w-[55px]"
-                                    title="Gia hạn gói tập"
+                                    title={lang === 'vi' ? "Gia hạn gói tập" : lang === 'zh' ? "续期卡包" : "Renew Package"}
                                   >
-                                    <Settings className="w-2.5 h-2.5" /> <span className="lg:hidden">Gia hạn</span>
+                                    <Settings className="w-2.5 h-2.5" /> <span className="lg:hidden">{lang === 'vi' ? "Gia hạn" : lang === 'zh' ? "续费" : "Renew"}</span>
                                   </button>
                                   {user?.role === "ADMIN" && (
                                     <button 
                                       onClick={(e) => {
                                         e.stopPropagation();
                                         confirmAction(
-                                          "XÁC NHẬN XÓA HỘI VIÊN",
-                                          `Bạn có chắc chắn muốn xóa hội viên "${member.fullName}"? Hội viên này sẽ được chuyển vào thùng rác.`,
+                                          lang === 'vi' ? "XÁC NHẬN XÓA" : lang === 'zh' ? "确认删除" : "CONFIRM DELETION",
+                                          lang === 'vi' ? `Bạn có chắc chắn muốn xóa hội viên "${member.fullName}"? Hội viên này sẽ được chuyển vào thùng rác.` : lang === 'zh' ? `确认删除会员 "${member.fullName}" 吗？该会员将被置入回收站。` : `Are you sure you want to delete member "${member.fullName}"? This will move them to the trash.`,
                                           () => handleDeleteMember(member.id),
                                           "danger"
                                         );
                                       }}
                                       className="flex-1 lg:flex-none p-1.5 bg-rose-500/10 text-rose-500 hover:bg-rose-500 hover:text-white rounded border border-rose-500/20 transition-all active:scale-90 flex items-center justify-center gap-1 text-[8.5px] font-bold uppercase tracking-wider min-w-[55px]"
-                                      title="Xóa mềm hội viên"
+                                      title={lang === 'vi' ? "Xoá hội viên" : lang === 'zh' ? "安全删除" : "Delete Member"}
                                     >
-                                      <Trash2 className="w-2.5 h-2.5" /> <span className="lg:hidden">Xóa</span>
+                                      <Trash2 className="w-2.5 h-2.5" /> <span className="lg:hidden">{lang === 'vi' ? "Xóa" : lang === 'zh' ? "删除" : "Delete"}</span>
                                     </button>
                                   )}
                                 </>
@@ -10496,7 +10787,7 @@ export default function App() {
                       <Dumbbell className="w-5 h-5" />
                     </div>
                   </div>
-                  <p className="text-[10px] text-zinc-500 mt-2 italic font-medium">Đội ngũ có hồ sơ hoạt động</p>
+                  <p className="text-[10px] text-zinc-500 mt-2 italic font-medium">{lang === 'vi' ? "Đội ngũ có hồ sơ hoạt động" : (lang === 'zh' ? "具有活动档案的团队" : "Active profile team members")}</p>
                 </div>
 
                 {/* Active Clients */}
@@ -10504,7 +10795,7 @@ export default function App() {
                   <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-purple-500 to-pink-500 opacity-70 group-hover:opacity-100 transition-opacity" />
                   <div className="flex justify-between items-start">
                     <div>
-                      <p className="text-[9px] font-black font-mono text-zinc-500 uppercase tracking-widest">HỘI VIÊN TIỂU BIỂU</p>
+                      <p className="text-[9px] font-black font-mono text-zinc-500 uppercase tracking-widest">{lang === 'vi' ? "HỘI VIÊN TIÊU BIỂU" : (lang === 'zh' ? "特色会员" : "FEATURED CLIENTS")}</p>
                       <p className="text-2xl font-black text-white mt-1 font-mono tracking-tight group-hover:text-[#CCFF00] transition-colors">
                         {ptStats.reduce((sum, s) => sum + s.activeClients, 0)}
                       </p>
@@ -10513,7 +10804,7 @@ export default function App() {
                       <Users className="w-5 h-5" />
                     </div>
                   </div>
-                  <p className="text-[10px] text-zinc-500 mt-2 italic font-medium">Đang trong hợp đồng đào tạo</p>
+                  <p className="text-[10px] text-zinc-500 mt-2 italic font-medium">{lang === 'vi' ? "Đang trong hợp đồng đào tạo" : (lang === 'zh' ? "培训合同中" : "Under training contract")}</p>
                 </div>
 
                 {/* Gross Revenue */}
@@ -10521,7 +10812,7 @@ export default function App() {
                   <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-[#CCFF00] to-emerald-500 opacity-70 group-hover:opacity-100 transition-opacity" />
                   <div className="flex justify-between items-start">
                     <div>
-                      <p className="text-[9px] font-black font-mono text-zinc-500 uppercase tracking-widest">DOANH THU KHÓA TẬP</p>
+                      <p className="text-[9px] font-black font-mono text-zinc-500 uppercase tracking-widest">{lang === 'vi' ? "DOANH THU KHÓA TẬP" : (lang === 'zh' ? "课程总收入" : "SESSION REVENUE")}</p>
                       <p className="text-xl font-black text-[#CCFF00] mt-1 font-mono tracking-tight">
                         {ptStats.reduce((sum, s) => sum + s.totalRevenue, 0).toLocaleString()}đ
                       </p>
@@ -10530,7 +10821,7 @@ export default function App() {
                       <TrendingUp className="w-5 h-5" />
                     </div>
                   </div>
-                  <p className="text-[10px] text-emerald-500 mt-2 italic font-bold">Tổng doanh thu PT đạt được</p>
+                  <p className="text-[10px] text-emerald-500 mt-2 italic font-bold">{lang === 'vi' ? "Tổng doanh thu PT đạt được" : (lang === 'zh' ? "教练总销售额" : "Gross booking sales")}</p>
                 </div>
 
                 {/* Total Paid / Commission */}
@@ -10538,7 +10829,7 @@ export default function App() {
                   <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-teal-400 to-[#CCFF00] opacity-70 group-hover:opacity-100 transition-opacity" />
                   <div className="flex justify-between items-start">
                     <div>
-                      <p className="text-[9px] font-black font-mono text-zinc-500 uppercase tracking-widest">HOA HỒNG PHẢI TRẢ</p>
+                      <p className="text-[9px] font-black font-mono text-zinc-500 uppercase tracking-widest">{lang === 'vi' ? "HOA HỒNG PHẢI TRẢ" : (lang === 'zh' ? "应付佣金" : "COMMISSION PAYABLE")}</p>
                       <p className="text-xl font-black text-teal-400 mt-1 font-mono tracking-tight">
                         {ptStats.reduce((sum, s) => sum + s.commission, 0).toLocaleString()}đ
                       </p>
@@ -10547,14 +10838,14 @@ export default function App() {
                       <DollarSign className="w-5 h-5" />
                     </div>
                   </div>
-                  <p className="text-[10px] text-teal-400 mt-2 italic font-medium">Theo tỉ lệ trích xuất cá nhân</p>
+                  <p className="text-[10px] text-teal-400 mt-2 italic font-medium">{lang === 'vi' ? "Theo tỉ lệ trích xuất cá nhân" : (lang === 'zh' ? "按个人抽成比例" : "Based on individual split")}</p>
                 </div>
               </div>
 
               {/* Advanced Interactive Level Segments (All, Master, Senior, Junior) */}
               <div className="flex items-center gap-1.5 p-1 bg-zinc-950/80 border border-white/10 rounded-2xl overflow-x-auto custom-scrollbar shrink-0">
                 {[
-                  { id: "ALL", label: "Tất cả huấn luyện viên", count: trainers.length },
+                  { id: "ALL", label: lang === 'vi' ? "Tất cả huấn luyện viên" : (lang === 'zh' ? "全部教练" : "All trainers"), count: trainers.length },
                   { id: "MASTER", label: "Master Coach", count: trainers.filter(t => t.level === "Master").length },
                   { id: "SENIOR", label: "Senior Coach", count: trainers.filter(t => t.level === "Senior").length },
                   { id: "JUNIOR", label: "Junior Coach", count: trainers.filter(t => t.level === "Junior").length },
@@ -10845,7 +11136,7 @@ export default function App() {
                   <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-blue-500 to-[#CCFF00] opacity-70 group-hover:opacity-100 transition-opacity" />
                   <div className="flex justify-between items-start">
                     <div>
-                      <p className="text-[9px] font-black font-mono text-zinc-500 uppercase tracking-widest">TỔNG NHÂN SỰ</p>
+                      <p className="text-[9px] font-black font-mono text-zinc-500 uppercase tracking-widest">{lang === 'vi' ? "TỔNG NHÂN SỰ" : (lang === 'zh' ? "人员总数" : "TOTAL STAFF")}</p>
                       <p className="text-2xl font-black text-blue-400 mt-1 font-mono tracking-tight">
                         {staffMembers.length}
                       </p>
@@ -10854,7 +11145,7 @@ export default function App() {
                       <UserIcon className="w-5 h-5" />
                     </div>
                   </div>
-                  <p className="text-[10px] text-zinc-500 mt-2 italic font-medium">Đội ngũ vận hành phòng máy</p>
+                  <p className="text-[10px] text-zinc-500 mt-2 italic font-medium">{lang === 'vi' ? "Đội ngũ vận hành phòng máy" : (lang === 'zh' ? "机房运营团队" : "Floor operational staff")}</p>
                 </div>
 
                 {/* Work shift distribution */}
@@ -10862,7 +11153,7 @@ export default function App() {
                   <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-purple-500 to-[#CCFF00] opacity-70 group-hover:opacity-100 transition-opacity" />
                   <div className="flex justify-between items-start">
                     <div>
-                      <p className="text-[9px] font-black font-mono text-zinc-500 uppercase tracking-widest">ĐÃ HOÀN THÀNH CA</p>
+                      <p className="text-[9px] font-black font-mono text-zinc-500 uppercase tracking-widest">{lang === 'vi' ? "ĐÃ HOÀN THÀNH CA" : (lang === 'zh' ? "今日完成值班" : "SHIFT COMPLETED")}</p>
                       <p className="text-2xl font-black text-purple-400 mt-1 font-mono tracking-tight">
                         {attendance.filter(a => a.date === new Date().toISOString().split('T')[0] && !!a.checkOut).length}
                       </p>
@@ -10871,23 +11162,23 @@ export default function App() {
                       <Trophy className="w-5 h-5" />
                     </div>
                   </div>
-                  <p className="text-[10px] text-zinc-500 mt-2 italic font-medium">Lượt trực hoàn tất hôm nay</p>
+                  <p className="text-[10px] text-zinc-500 mt-2 italic font-medium">{lang === 'vi' ? "Lượt trực hoàn tất hôm nay" : (lang === 'zh' ? "今日完成值班" : "Duty shifts completed today")}</p>
                 </div>
               </div>
 
               {/* Segment Filters for Staff */}
               <div className="flex items-center gap-1.5 p-1 bg-zinc-950/80 border border-white/10 rounded-2xl overflow-x-auto custom-scrollbar shrink-0">
                 {[
-                  { id: "ALL", label: "Tất cả nhân sự", count: staffMembers.length },
-                  { id: "PRESENT", label: "Đang làm việc", count: staffMembers.filter(s => {
+                  { id: "ALL", label: lang === 'vi' ? "Tất cả nhân sự" : (lang === 'zh' ? "全员" : "All staff"), count: staffMembers.length },
+                  { id: "PRESENT", label: lang === 'vi' ? "Đang làm việc" : (lang === 'zh' ? "值班中" : "On duty"), count: staffMembers.filter(s => {
                     const l = attendance.find(a => a.staffId === s.id && a.date === new Date().toISOString().split('T')[0]);
                     return !!l && !l.checkOut;
                   }).length },
-                  { id: "DONE", label: "Đã hoàn thành ca", count: staffMembers.filter(s => {
+                  { id: "DONE", label: lang === 'vi' ? "Đã hoàn thành ca" : (lang === 'zh' ? "下班" : "Completed shift"), count: staffMembers.filter(s => {
                     const l = attendance.find(a => a.staffId === s.id && a.date === new Date().toISOString().split('T')[0]);
                     return !!l && !!l.checkOut;
                   }).length },
-                  { id: "OFF", label: "Nghỉ ca / Off", count: staffMembers.filter(s => {
+                  { id: "OFF", label: lang === 'vi' ? "Nghỉ ca / Off" : (lang === 'zh' ? "休息 / Off" : "Off shift"), count: staffMembers.filter(s => {
                     const l = attendance.find(a => a.staffId === s.id && a.date === new Date().toISOString().split('T')[0]);
                     return !l;
                   }).length },
@@ -12175,9 +12466,9 @@ export default function App() {
                   <div className="flex items-center justify-between gap-4 shrink-0 flex-col sm:flex-row">
                     <div className="flex items-center gap-1.5 p-1 bg-zinc-950/80 border border-white/10 rounded-2xl overflow-x-auto custom-scrollbar w-full sm:w-auto">
                       {[
-                        { id: "ALL", label: "Tất cả giao dịch", count: transactions.length },
-                        { id: "INCOME", label: "Khoản thu (+)", count: transactions.filter(t => t.type === "INCOME").length },
-                        { id: "EXPENSE", label: "Khoản chi (-)", count: transactions.filter(t => t.type === "EXPENSE").length },
+                        { id: "ALL", label: lang === 'vi' ? "Tất cả giao dịch" : (lang === 'zh' ? "全部交易" : "All transactions"), count: transactions.length },
+                        { id: "INCOME", label: lang === 'vi' ? "Khoản thu (+)" : (lang === 'zh' ? "收入 (+)" : "Income (+)"), count: transactions.filter(t => t.type === "INCOME").length },
+                        { id: "EXPENSE", label: lang === 'vi' ? "Khoản chi (-)" : (lang === 'zh' ? "支出 (-)" : "Expense (-)"), count: transactions.filter(t => t.type === "EXPENSE").length },
                       ].map((tier) => {
                         const isSelected = (memberStatusFilter === tier.id) || (tier.id === "ALL" && memberStatusFilter !== "INCOME" && memberStatusFilter !== "EXPENSE");
                         return (
@@ -12278,7 +12569,7 @@ export default function App() {
               animate={{ opacity: 1 }}
               className="px-5 md:px-8 pb-12 w-full h-full"
             >
-              <WarehouseManagement subTab={activeTab.startsWith("pos-") ? activeTab.substring(4) as any : "products"} />
+              <WarehouseManagement subTab={activeTab.startsWith("pos-") ? activeTab.substring(4) as any : "products"} lang={lang} />
             </motion.div>
           ) : activeTab === "invoice-sales" ? (
             <motion.div
@@ -12550,7 +12841,7 @@ export default function App() {
                                   </div>
                                 </td>
                                 <td className="px-8 py-4.5 italic text-xs text-zinc-300 font-black uppercase">
-                                  {member.package || "CHƯA CÓ"}
+                                  {translatePackageName(member.package || "CHƯA CÓ")}
                                 </td>
                                 <td className="px-8 py-4.5 font-mono text-xs text-zinc-400">
                                   {member.registrationDate ? `${member.registrationDate} ➜ ` : ""} {member.expiryDate || "—"}
@@ -12712,7 +13003,7 @@ export default function App() {
                                 </div>
                               </td>
                               <td className="px-8 py-4.5 italic text-xs text-zinc-350 font-black uppercase">
-                                {m.package}
+                                {translatePackageName(m.package)}
                               </td>
                               <td className="px-8 py-4.5 font-mono text-xs text-zinc-400">
                                 {m.expiryDate}
@@ -12873,7 +13164,7 @@ export default function App() {
                                 </div>
                               </td>
                               <td className="px-8 py-4.5 italic text-xs text-zinc-355 text-zinc-400 font-black uppercase">
-                                {m.package}
+                                {translatePackageName(m.package)}
                               </td>
                               <td className="px-8 py-4.5 font-mono text-xs text-zinc-400">
                                 {m.expiryDate}
@@ -13193,7 +13484,7 @@ export default function App() {
                                 <div className="w-10 h-10 rounded-xl bg-zinc-900 flex items-center justify-center text-xs font-black text-white group-hover:bg-[#CCFF00] group-hover:text-black transition-colors">{member.fullName.charAt(0)}</div>
                                 <div>
                                   <p className="text-xs font-black uppercase text-white group-hover:text-[#CCFF00] transition-colors">{member.fullName}</p>
-                                  <p className="text-[9px] font-mono text-zinc-600">{member.package}</p>
+                                  <p className="text-[9px] font-mono text-zinc-600">{translatePackageName(member.package)}</p>
                                 </div>
                               </div>
                               <button 
@@ -13775,7 +14066,7 @@ export default function App() {
                           value={pkg.name}
                           className="bg-zinc-950 font-black"
                         >
-                          {t(pkg.name || '').toUpperCase()} // {t(pkg.duration || '').toUpperCase()}
+                          {translatePackageName(pkg.name || '').toUpperCase()} // {t(pkg.duration || '').toUpperCase()}
                         </option>
                       ))}
                     </select>
@@ -14320,7 +14611,7 @@ export default function App() {
                             ))
                           ) : (
                             <div className="py-20 text-center text-zinc-700 text-[10px] font-black uppercase tracking-widest italic border border-white/5 rounded-2xl border-dashed">
-                              CHƯA CÓ GIAO DỊCH NÀO
+                              {lang === 'vi' ? "CHƯA CÓ GIAO DỊCH NÀO" : lang === 'zh' ? "暂无交易历史记录" : "NO TRANSACTIONS YET"}
                             </div>
                           )}
                         </div>
@@ -14330,24 +14621,24 @@ export default function App() {
                           <div className="bg-[#121620]/40 border border-[#CCFF00]/10 rounded-2xl p-6 space-y-5">
                             <h4 className="text-white text-xs font-black uppercase tracking-widest italic flex items-center gap-2">
                               <span className="w-2 h-2 rounded-full bg-[#CCFF00] animate-pulse" />
-                              CHI TIẾT GÓI GIA HẠN MỚI
+                              {lang === 'vi' ? "CHI TIẾT GÓI GIA HẠN MỚI" : lang === 'zh' ? "新卡套系续费详情" : "NEW RENEWAL PACKAGE DETAILS"}
                             </h4>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                               {/* Chọn gói tập */}
                               <div>
                                 <label className="block text-[9px] font-mono text-zinc-500 uppercase tracking-widest mb-1.5 font-bold">
-                                  CHỌN GÓI TẬP:
+                                  {lang === 'vi' ? "CHỌN GÓI TẬP:" : lang === 'zh' ? "选择课程卡项:" : "CHOOSE PACKAGE:"}
                                 </label>
                                 <select
                                   value={renewFormPackage}
                                   onChange={(e) => setRenewFormPackage(e.target.value)}
                                   className="w-full bg-zinc-950 border border-white/10 px-3 py-2.5 rounded-xl focus:border-[#CCFF00] outline-none text-xs font-mono uppercase tracking-widest text-white cursor-pointer"
                                 >
-                                  <option value="" className="bg-zinc-950">-- CHỌN GÓI TẬP --</option>
+                                  <option value="" className="bg-zinc-950">-- {lang === 'vi' ? "CHỌN GÓI TẬP" : lang === 'zh' ? "选择会员套卡" : "CHOOSE PACKAGE"} --</option>
                                   {packages.map((pkg) => (
                                     <option key={pkg.id} value={pkg.name} className="bg-[#000000] text-white">
-                                      {pkg.name.toUpperCase()} ({(pkg.price).toLocaleString()}đ)
+                                      {translatePackageName(pkg.name).toUpperCase()} ({(pkg.price).toLocaleString()}đ)
                                     </option>
                                   ))}
                                 </select>
@@ -14356,7 +14647,7 @@ export default function App() {
                               {/* Phương thức thanh toán */}
                               <div>
                                 <label className="block text-[9px] font-mono text-zinc-500 uppercase tracking-widest mb-1.5 font-bold">
-                                  PHƯƠNG THỨC THANH TOÁN:
+                                  {lang === 'vi' ? "PHƯƠNG THỨC THANH TOÁN:" : lang === 'zh' ? "支付交易方式:" : "PAYMENT METHOD:"}
                                 </label>
                                 <select
                                   value={renewFormPaymentMethod}
@@ -14373,7 +14664,7 @@ export default function App() {
                               {/* Ngày đóng tiền */}
                               <div>
                                 <label className="block text-[9px] font-mono text-zinc-500 uppercase tracking-widest mb-1.5 font-bold">
-                                  NGÀY ĐÓNG TIỀN (NGÀY BẮT ĐẦU):
+                                  {lang === 'vi' ? "NGÀY ĐÓNG TIỀN (NGÀY BẮT ĐẦU):" : lang === 'zh' ? "缴费进账时间 (即开始日):" : "PAYMENT DATE (STARTING ON):"}
                                 </label>
                                 <input
                                   type="date"
@@ -14387,7 +14678,7 @@ export default function App() {
                               {/* Ngày hết hạn (Tự động tính) */}
                               <div>
                                 <label className="block text-[9px] font-mono text-zinc-500 uppercase tracking-widest mb-1.5 font-bold">
-                                  NGÀY HẾT HẠN (TỰ ĐỘNG - AUTO):
+                                  {lang === 'vi' ? "NGÀY HẾT HẠN (TỰ ĐỘNG - AUTO):" : lang === 'zh' ? "到期日期 (自适应计算):" : "EXPIRY DATE (AUTO-CALCULATED):"}
                                 </label>
                                 <div className="w-full bg-zinc-900 border border-white/5 px-3 py-2.5 rounded-xl text-xs font-mono font-bold text-[#CCFF00] select-none">
                                   {(() => {
@@ -14402,7 +14693,7 @@ export default function App() {
                               {/* Giảm giá */}
                               <div>
                                 <label className="block text-[9px] font-mono text-zinc-500 uppercase tracking-widest mb-1.5 font-bold">
-                                  SỐ TIỀN GIẢM GIÁ (VND):
+                                  {lang === 'vi' ? "SỐ TIỀN GIẢM GIÁ (VND):" : lang === 'zh' ? "直减优惠金额 (VND):" : "DISCOUNT AMOUNT (VND):"}
                                 </label>
                                 <input
                                   type="text"
@@ -14419,7 +14710,7 @@ export default function App() {
                               {/* Nhân viên phụ trách */}
                               <div>
                                 <label className="block text-[9px] font-mono text-zinc-500 uppercase tracking-widest mb-1.5 font-bold">
-                                  NHÂN VIÊN PHỤ TRÁCH:
+                                  {lang === 'vi' ? "NHÂN VIÊN PHỤ TRÁCH:" : lang === 'zh' ? "经办对接员工:" : "RESPONSIBLE STAFF:"}
                                 </label>
                                 <select
                                   value={renewFormStaff}
@@ -14440,7 +14731,7 @@ export default function App() {
                           {/* Thông tin hóa đơn thanh toán */}
                            <div className="bg-[#CCFF00]/5 border border-[#CCFF00]/20 rounded-2xl p-6 space-y-4">
                              <p className="text-[10px] font-black text-[#CCFF00] uppercase tracking-widest italic">
-                               HÓA ĐƠN ĐĂNG KÝ GIA HẠN
+                               {lang === 'vi' ? "HÓA ĐƠN ĐĂNG KÝ GIA HẠN" : lang === 'zh' ? "卡包续约发票账单" : "RENEWAL REGISTRATION INVOICE"}
                              </p>
                              <div className="space-y-2 text-[11px] font-mono">
                                <div className="flex justify-between items-center text-zinc-400">
@@ -15560,34 +15851,46 @@ export default function App() {
                   <KeyRound className="w-6 h-6" />
                 </div>
                 <h3 className="text-2xl font-black italic uppercase tracking-tighter text-white">
-                  ĐẶT LẠI MẬT KHẨU
+                  {lang === 'vi' ? "ĐẶT LẠI MẬT KHẨU" : lang === 'zh' ? "重置密码" : "RESET PASSWORD"}
                 </h3>
               </div>
               <p className="text-zinc-400 text-[11px] leading-relaxed mb-6">
-                Đặt lại mật khẩu cho tài khoản hội viên <span className="text-[#CCFF00] font-black">{resetPasswordMember.fullName}</span>. Bạn có thể tự điền mật khẩu bằng tay bên dưới.
+                {lang === 'vi' ? (
+                  <>Đặt lại mật khẩu cho tài khoản hội viên <span className="text-[#CCFF00] font-black">{resetPasswordMember.fullName}</span>. Bạn có thể tự điền mật khẩu bằng tay bên dưới.</>
+                ) : lang === 'zh' ? (
+                  <>重置会员 <span className="text-[#CCFF00] font-black">{resetPasswordMember.fullName}</span> 的登录密码。您可在下方手动输入新密码。</>
+                ) : (
+                  <>Reset the login password for member <span className="text-[#CCFF00] font-black">{resetPasswordMember.fullName}</span>. You can manually enter a new password below.</>
+                )}
               </p>
 
               <div className="space-y-4">
                 {user?.role === "ADMIN" && (
                   <div className="bg-zinc-900 border border-white/5 p-4 rounded-2xl flex flex-col gap-1.5 shadow-inner">
-                    <span className="text-[9px] font-black font-mono text-zinc-500 uppercase tracking-wider block">Mật khẩu hiện tại (Admin):</span>
+                    <span className="text-[9px] font-black font-mono text-zinc-500 uppercase tracking-wider block">
+                      {lang === 'vi' ? "Mật khẩu hiện tại (Admin):" : lang === 'zh' ? "当前密码 (管理员可见):" : "Current Password (Admin):"}
+                    </span>
                     <div className="flex items-center justify-between">
                       <span className="text-sm font-mono font-black text-[#CCFF00] tracking-wider select-all">
                         {members.find(m => m.id === resetPasswordMember.id)?.password || "123456"}
                       </span>
-                      <span className="text-[8px] font-black font-mono uppercase tracking-[0.2em] text-white/20 bg-white/5 px-2 py-0.5 rounded">Hiện có</span>
+                      <span className="text-[8px] font-black font-mono uppercase tracking-[0.2em] text-white/20 bg-white/5 px-2 py-0.5 rounded">
+                        {lang === 'vi' ? "Hiện có" : lang === 'zh' ? "现有" : "Current"}
+                      </span>
                     </div>
                   </div>
                 )}
 
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-black font-mono text-zinc-500 uppercase tracking-wider block">Mật khẩu mới</label>
+                  <label className="text-[10px] font-black font-mono text-zinc-500 uppercase tracking-wider block">
+                    {lang === 'vi' ? "Mật khẩu mới" : lang === 'zh' ? "新密码" : "New Password"}
+                  </label>
                   <div className="relative">
                     <input
                       type={showResetPasswordValue ? "text" : "password"}
                       value={resetPasswordValue}
                       onChange={(e) => setResetPasswordValue(e.target.value)}
-                      placeholder="Nhập mật khẩu tự chọn..."
+                      placeholder={lang === 'vi' ? "Nhập mật khẩu tự chọn..." : lang === 'zh' ? "请输入新密码..." : "Enter new password..."}
                       className="w-full bg-zinc-900 border border-white/10 px-4 py-3.5 pr-12 rounded-xl focus:border-[#CCFF00] outline-none text-xs font-mono text-[#CCFF00]"
                     />
                     <button
@@ -15606,7 +15909,7 @@ export default function App() {
                     onClick={() => setResetPasswordValue("123456")}
                     className="flex-1 text-[9px] font-black font-mono uppercase tracking-widest text-[#CCFF00] hover:text-black hover:bg-[#CCFF00] border border-white/10 px-3 py-2 bg-white/5 rounded-lg transition-all"
                   >
-                    Mặc định "123456"
+                    {lang === 'vi' ? 'Mặc định "123456"' : lang === 'zh' ? '默认 "123456"' : 'Default "123456"'}
                   </button>
                   <button
                     type="button"
@@ -15616,7 +15919,7 @@ export default function App() {
                     }}
                     className="flex-1 text-[9px] font-black font-mono uppercase tracking-widest text-zinc-400 hover:text-white border border-white/10 px-3 py-2 bg-white/5 rounded-lg transition-all"
                   >
-                    Random ngẫu nhiên
+                    {lang === 'vi' ? "Random ngẫu nhiên" : lang === 'zh' ? "随机生成" : "Randomly Generate"}
                   </button>
                 </div>
               </div>
@@ -15637,7 +15940,7 @@ export default function App() {
                   onClick={handlePerformResetPassword}
                   className="flex-1 py-3.5 bg-[#CCFF00] text-black hover:bg-white font-black rounded-xl text-[10px] uppercase tracking-widest transition-all shadow-[0_8px_20px_rgba(204,255,0,0.15)]"
                 >
-                  Xác nhận lưu
+                  {lang === 'vi' ? "Xác nhận lưu" : lang === 'zh' ? "确认保存" : "Confirm & Save"}
                 </button>
               </div>
             </motion.div>
@@ -15884,7 +16187,7 @@ export default function App() {
                           value={pkg.name}
                           className="bg-zinc-950 text-white font-black"
                         >
-                          {t(pkg.name).toUpperCase()}
+                          {translatePackageName(pkg.name).toUpperCase()}
                         </option>
                       ))}
                     </select>
@@ -15970,7 +16273,7 @@ export default function App() {
                       }
                       className="w-full bg-white/5 border border-white/10 px-4 py-3 rounded-xl focus:border-[#CCFF00] outline-none text-xs font-black uppercase tracking-tight italic"
                     >
-                      <option value="" className="bg-zinc-950 px-4 py-2">HỆ THỐNG / CHƯA GÁN</option>
+                      <option value="" className="bg-zinc-950 px-4 py-2">{lang === 'vi' ? "HỆ THỐNG / CHƯA GÁN" : lang === 'zh' ? "系统 / 未分配" : "SYSTEM / UNASSIGNED"}</option>
                       {staffMembers
                         .filter((s) => s.isActive !== false)
                         .map((s) => {
@@ -16068,19 +16371,19 @@ export default function App() {
             >
               <div className="mb-6">
                 <h3 className="text-2xl font-black italic uppercase tracking-tighter text-[#CCFF00]">
-                  GIA HẠN HỘI VIÊN
+                  {lang === 'vi' ? "GIA HẠN HỘI VIÊN" : lang === 'zh' ? "会员卡项续期" : "RENEW MEMBERSHIP"}
                 </h3>
                 <p className="text-[11px] font-mono text-zinc-400 mt-1 uppercase tracking-widest">
-                  HỘI VIÊN: {renewingMember.fullName} ({renewingMember.memberCode})
+                  {lang === 'vi' ? "HỘI VIÊN:" : lang === 'zh' ? "会员:" : "MEMBER:"} {renewingMember.fullName} ({renewingMember.memberCode})
                 </p>
                 <p className="text-[10px] font-mono text-zinc-500 mt-1 italic">
-                  Gói hiện tại: {renewingMember.package || "Chưa đăng ký"}
+                  {lang === 'vi' ? "Gói hiện tại:" : lang === 'zh' ? "当前在用卡包:" : "Current active card:"} {translatePackageName(renewingMember.package) || (lang === 'vi' ? "Chưa đăng ký" : lang === 'zh' ? "未注册" : "Not registered")}
                 </p>
               </div>
 
               <div className="overflow-y-auto custom-scrollbar flex-1 pr-1 space-y-3 py-2">
                 <p className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest mb-2 italic">
-                  CHỌN GÓI TẬP MUỐN GIA HẠN:
+                  {lang === 'vi' ? "CHỌN GÓI TẬP MUỐN GIA HẠN:" : lang === 'zh' ? "选择您想要续费的会员卡项:" : "CHOOSE PACKAGE FOR RENEWAL:"}
                 </p>
                 {packages.map((pkg) => (
                   <button
@@ -16088,8 +16391,12 @@ export default function App() {
                     key={pkg.id}
                     onClick={() => {
                       confirmAction(
-                        "XÁC NHẬN GIA HẠN",
-                        `Gia hạn gói tập [${pkg.name}] cho hội viên ${renewingMember.fullName} với giá ${pkg.price.toLocaleString()}đ?`,
+                        lang === 'vi' ? "XÁC NHẬN GIA HẠN" : lang === 'zh' ? "确认续卡操作" : "CONFIRM MEMBERSHIP RENEWAL",
+                        lang === 'vi'
+                          ? `Gia hạn gói tập [${translatePackageName(pkg.name)}] cho hội viên ${renewingMember.fullName} với giá ${pkg.price.toLocaleString()}đ?`
+                          : lang === 'zh'
+                          ? `确认要为会员 ${renewingMember.fullName} 办理 [${translatePackageName(pkg.name)}] 的卡项续期并扣款 ${pkg.price.toLocaleString()} 元吗？`
+                          : `Renew membership package [${translatePackageName(pkg.name)}] for ${renewingMember.fullName} at the rate of ${pkg.price.toLocaleString()} VND?`,
                         () => handleMemberRenewWithPackage(renewingMember, pkg.name),
                         "info"
                       );
@@ -16097,7 +16404,7 @@ export default function App() {
                     className="w-full bg-white/5 border border-white/10 hover:border-[#CCFF00] hover:bg-[#CCFF00]/5 transition-all p-4 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between text-left gap-4"
                   >
                     <div>
-                      <p className="text-[11px] font-black uppercase italic text-white">{pkg.name}</p>
+                      <p className="text-[11px] font-black uppercase italic text-white">{translatePackageName(pkg.name)}</p>
                       <p className="text-[9px] font-mono text-zinc-500 mt-1 uppercase tracking-wider">{pkg.duration} • {pkg.description}</p>
                     </div>
                     <div className="text-right shrink-0">
@@ -16113,7 +16420,7 @@ export default function App() {
                   onClick={() => setIsRenewSelectModalOpen(false)}
                   className="w-full py-4 bg-zinc-900 border border-white/10 rounded-xl text-[10px] font-black uppercase text-zinc-500 hover:text-white transition-all"
                 >
-                  ĐÓNG
+                  {lang === 'vi' ? "ĐÓNG" : lang === 'zh' ? "关闭" : "CLOSE"}
                 </button>
               </div>
             </motion.div>
